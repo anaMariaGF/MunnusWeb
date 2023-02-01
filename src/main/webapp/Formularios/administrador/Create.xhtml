@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAdministradorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_idAdministrador}" for="idAdministrador" />
+                    <h:inputText id="idAdministrador" value="#{administradorController.selected.idAdministrador}" title="#{bundle.CreateAdministradorTitle_idAdministrador}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_idAdministrador}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_nif}" for="nif" />
+                    <h:inputText id="nif" value="#{administradorController.selected.nif}" title="#{bundle.CreateAdministradorTitle_nif}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_nif}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_matriculaAbogado}" for="matriculaAbogado" />
+                    <h:inputText id="matriculaAbogado" value="#{administradorController.selected.matriculaAbogado}" title="#{bundle.CreateAdministradorTitle_matriculaAbogado}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_matriculaAbogado}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_nombres}" for="nombres" />
+                    <h:inputText id="nombres" value="#{administradorController.selected.nombres}" title="#{bundle.CreateAdministradorTitle_nombres}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_nombres}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_apellidos}" for="apellidos" />
+                    <h:inputText id="apellidos" value="#{administradorController.selected.apellidos}" title="#{bundle.CreateAdministradorTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_apellidos}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_telefono}" for="telefono" />
+                    <h:inputText id="telefono" value="#{administradorController.selected.telefono}" title="#{bundle.CreateAdministradorTitle_telefono}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_telefono}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{administradorController.selected.email}" title="#{bundle.CreateAdministradorTitle_email}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_clave}" for="clave" />
+                    <h:inputText id="clave" value="#{administradorController.selected.clave}" title="#{bundle.CreateAdministradorTitle_clave}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_clave}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_estadoCuentaA}" for="estadoCuentaA" />
+                    <h:inputText id="estadoCuentaA" value="#{administradorController.selected.estadoCuentaA}" title="#{bundle.CreateAdministradorTitle_estadoCuentaA}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_estadoCuentaA}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_administradorcol}" for="administradorcol" />
+                    <h:inputText id="administradorcol" value="#{administradorController.selected.administradorcol}" title="#{bundle.CreateAdministradorTitle_administradorcol}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_administradorcol}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{administradorController.create}" value="#{bundle.CreateAdministradorSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{administradorController.prepareList}" value="#{bundle.CreateAdministradorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAdministradorIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
