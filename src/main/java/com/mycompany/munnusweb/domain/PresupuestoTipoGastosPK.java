@@ -4,51 +4,65 @@
  */
 package com.mycompany.munnusweb.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
+/**w
  *
  * @author ana
  */
 @Embeddable
 public class PresupuestoTipoGastosPK {
   
-    @Column(name=" presuesto_id_Presupuesto")
-    private int idPresupuesto;
+    @Column(name="presuesto_id_Presupuesto")
+    private Integer idPresupuesto;
+    
+    
+    @Column(name="presuesto_id_administrador")
+    private Integer idPresupuestoAdmin;
     
  
-    @Column(name=" tipo_gastos_id_tipo_gastos")
-    private int idTipoGastos;
+    @Column(name="tipo_gastos_id_tipo_gastos")
+    private Integer idTipoGastos;
 
-    public int getIdPresupuesto() {
+    public Integer getIdPresupuesto() {
         return idPresupuesto;
     }
 
-    public void setIdPresupuesto(int idPresupuesto) {
+    public void setIdPresupuesto(Integer idPresupuesto) {
         this.idPresupuesto = idPresupuesto;
     }
 
-    public int getIdTipoGastos() {
+    public Integer getIdPresupuestoAdmin() {
+        return idPresupuestoAdmin;
+    }
+
+    public void setIdPresupuestoAdmin(Integer idPresupuestoAdmin) {
+        this.idPresupuestoAdmin = idPresupuestoAdmin;
+    }
+
+    public Integer getIdTipoGastos() {
         return idTipoGastos;
     }
 
-    public void setIdTipoGastos(int idTipoGastos) {
+    public void setIdTipoGastos(Integer idTipoGastos) {
         this.idTipoGastos = idTipoGastos;
     }
 
     @Override
-    public int hashCode() { //identificador has
+    public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + this.idPresupuesto;
-        hash = 37 * hash + this.idTipoGastos;
+        hash = 97 * hash + Objects.hashCode(this.idPresupuesto);
+        hash = 97 * hash + Objects.hashCode(this.idPresupuestoAdmin);
+        hash = 97 * hash + Objects.hashCode(this.idTipoGastos);
         return hash;
     }
 
-    @Override //comparamos que una llavae no sea igual a la otra
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -60,11 +74,15 @@ public class PresupuestoTipoGastosPK {
             return false;
         }
         final PresupuestoTipoGastosPK other = (PresupuestoTipoGastosPK) obj;
-        if (this.idPresupuesto != other.idPresupuesto) {
+        if (!Objects.equals(this.idPresupuesto, other.idPresupuesto)) {
             return false;
         }
-        return this.idTipoGastos == other.idTipoGastos;
+        if (!Objects.equals(this.idPresupuestoAdmin, other.idPresupuestoAdmin)) {
+            return false;
+        }
+        return Objects.equals(this.idTipoGastos, other.idTipoGastos);
     }
+
     
     
     

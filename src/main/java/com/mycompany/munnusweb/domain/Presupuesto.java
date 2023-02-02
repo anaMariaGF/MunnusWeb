@@ -57,9 +57,8 @@ public class Presupuesto implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PresupuestoPK presupuestoPK;
-    @JoinTable(name = "presupuesto_has_tipo_gastos", joinColumns = {
-        @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto")}, inverseJoinColumns = {
-        @JoinColumn(name = "tipo_gastos_id_tipo_gasto", referencedColumnName = "id_tipo_gasto")})
+   
+       
     
    @OneToMany(mappedBy = "presupuesto")
 

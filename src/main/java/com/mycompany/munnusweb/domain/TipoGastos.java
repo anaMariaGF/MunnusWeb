@@ -47,7 +47,7 @@ public class TipoGastos implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_tipo_gasto")
     private Integer idTipoGasto;
-    @OneToMany(mappedBy = "tipoGastosCollection")
+    @OneToMany(mappedBy = "tipoGastos")
     private Collection<PresupuestoTipoGastos> presupuestoTipoGastos;
 
     public TipoGastos() {

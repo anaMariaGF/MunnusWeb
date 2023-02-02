@@ -6,11 +6,13 @@ package com.mycompany.munnusweb.data;
 
 import com.mycompany.munnusweb.domain.Factura;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author ana
  */
+@Local
 public interface FacturaDao {
     
     public List<Factura> findAllFacturas();

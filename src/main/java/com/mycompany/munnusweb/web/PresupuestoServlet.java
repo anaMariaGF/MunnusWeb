@@ -5,12 +5,13 @@
 package com.mycompany.munnusweb.web;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 
 /**
  *
  * @author ana
  */
 @WebServlet("/presupuestos")
-public class PresupuestoServlet {
+public class PresupuestoServlet extends HttpServlet {
     
 }
