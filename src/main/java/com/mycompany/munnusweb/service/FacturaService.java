@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author ana
  */
 @Local
-interface FacturaService {
+public interface FacturaService {
     public List<Factura> listarFacturas();
     public Factura encontrarFacturaPorID(Factura factura);
     public void registrarUsuario(Factura factura);

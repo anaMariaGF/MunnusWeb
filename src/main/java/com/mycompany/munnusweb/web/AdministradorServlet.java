@@ -5,6 +5,7 @@
 package com.mycompany.munnusweb.web;
 
 import com.mycompany.munnusweb.domain.Administrador;
+import com.mycompany.munnusweb.service.AdministradorService;
 import com.mycompany.munnusweb.service.AdministradorServiceImp;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +28,7 @@ public class AdministradorServlet extends HttpServlet {
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    AdministradorServiceImp administradorService; // Cremos una instancia de nuestra if local
+    AdministradorService administradorService; // Cremos una instancia de nuestra if local
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse respose)

@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author ana
  */
 @Local 
-interface AdministradorService {
+public interface AdministradorService {
     
     public List<Administrador> listarAdministradores();
     
