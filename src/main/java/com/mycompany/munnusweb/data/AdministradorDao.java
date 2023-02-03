@@ -6,13 +6,13 @@ package com.mycompany.munnusweb.data;
 
 import com.mycompany.munnusweb.domain.Administrador;
 import java.util.List;
-import javax.ejb.Local;
+
 
 /**
  *
  * @author ana
  */
-@Local
+
 public interface AdministradorDao {
     
     public List<Administrador> findAllAdministrador();

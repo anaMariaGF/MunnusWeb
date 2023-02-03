@@ -15,9 +15,12 @@
         <h1>Listado de Propietarios</h1>
         <ul>
             <!--<c:forEach items="${propietarios}" var="propietario">-->
-                <li>${propietario.username} ${propietario.password} ${propietario.persona}</li>
+                <li>${propietario.idPropietario} ${propietario.nombres} ${propietario.apellidos}
+                ${propietario.telefono} ${propietario.email} ${propietario.numeroCuentaBancaria}
+                ${propietario.clave} ${propietario.estadoCuentaA}</li>
             </c:forEach>
         </ul>
         
     </body>
 </html>
+ 

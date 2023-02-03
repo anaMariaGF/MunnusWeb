@@ -15,7 +15,9 @@
          <h1>Listado de Administradores</h1>
         <ul>
             <!--<c:forEach items="${administradores}" var="administrador">-->
-                <li>${administrador.username} ${administrador.password} ${administrador.persona}</li>
+                <li>${administrador.idAdministrador} ${administrador.nif} ${administrador.matriculaAbogado}
+                {administrador.nombres} ${administrador.apellidos} ${administrador.telefono}
+                {administrador.email} ${administrador.clave} ${administrador.estadoCuentaA}</li>
             </c:forEach>
         </ul>
         

@@ -6,7 +6,7 @@ package com.mycompany.munnusweb.service;
 
 import com.mycompany.munnusweb.domain.Factura;
 import java.util.List;
-import javax.ejb.Local;
+import javax.ejb.Local; //java been de tipo local 
 
 /**
  *
@@ -19,4 +19,7 @@ public interface FacturaService {
     public void registrarUsuario(Factura factura);
     public void modificarUsuario(Factura factura);
     public void eliminarUsuario(Factura factura);
+    
+    //generar factura
+    //calcular factura
 }

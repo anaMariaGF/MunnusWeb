@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Administrador.findByApellidos", query = "SELECT a FROM Administrador a WHERE a.apellidos = :apellidos"),
     @NamedQuery(name = "Administrador.findByTelefono", query = "SELECT a FROM Administrador a WHERE a.telefono = :telefono"),
     @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email"),
-    @NamedQuery(name = "Administrador.findByClave", query = "SELECT a FROM Administrador a WHERE a.clave = :clave")})
+    @NamedQuery(name = "Administrador.findByClave", query = "SELECT a FROM Administrador a WHERE a.clave = :clave"),
+    @NamedQuery(name = "Administrador.findByClaveMatriculaAbogado", query = "SELECT a FROM Administrador a WHERE a.clave = :clave AND a.matriculaAbogado = :matriculaAbogado" )})
+
 public class Administrador implements Serializable {
 
     @Basic(optional = false)
@@ -54,6 +56,8 @@ public class Administrador implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "matriculaAbogado")
     private String matriculaAbogado;
+    @OneToMany(mappedBy = "administradoridAdministrador")
+    private Collection<Usuario> usuarioCollection;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -168,21 +172,6 @@ public class Administrador implements Serializable {
         return "com.mycompany.munnusweb.domain.Administrador[ idAdministrador=" + idAdministrador + " ]";
     }
 
-    public String getNif() {
-        return nif;
-    }
-
-    public void setNif(String nif) {
-        this.nif = nif;
-    }
-
-    public String getMatriculaAbogado() {
-        return matriculaAbogado;
-    }
-
-    public void setMatriculaAbogado(String matriculaAbogado) {
-        this.matriculaAbogado = matriculaAbogado;
-    }
 
     public String getNombres() {
         return nombres;
@@ -230,6 +219,31 @@ public class Administrador implements Serializable {
 
     public void setEstadoCuentaA(byte[] estadoCuentaA) {
         this.estadoCuentaA = estadoCuentaA;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public String getMatriculaAbogado() {
+        return matriculaAbogado;
+    }
+
+    public void setMatriculaAbogado(String matriculaAbogado) {
+        this.matriculaAbogado = matriculaAbogado;
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
     
 }

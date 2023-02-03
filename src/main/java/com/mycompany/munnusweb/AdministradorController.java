@@ -6,10 +6,12 @@ import com.mycompany.munnusweb.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
+import javax.faces.application.FacesMessage;
+//import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -23,11 +25,56 @@ public class AdministradorController implements Serializable {
 
     private Administrador current;
     private DataModel items = null;
+    
+    /*
+//Esta linea de codigo permite la inyección de una referencia a la fachada
+ del AdministradorFacade, la cual proporciona métodos para interactuar con 
+ el modelo de datos. Además, también se inicializan el objeto PaginationHelper
+ y la variable selectedItemIndex para almacenar el índice del elemento 
+ seleccionado.*/
     @EJB
     private com.mycompany.munnusweb.AdministradorFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private AdministradorFacade EJBadmin;
+    private Administrador admin;
+    
+    @PostConstruct
+    public void init(){
+        admin = new Administrador();
+    }
+    
+    public String iniciarSesion(){
+        System.out.println("verificando usuario");
+        String redireccion = null;
+        FacesContext context = FacesContext.getCurrentInstance();
+        try{
+            admin = EJBadmin.iniciarSesion(admin); 
+            if(admin !=null){
+                context.getExternalContext().getSessionMap().put("administrador", admin);
+                redireccion = "indexAdministrador";
+                //redireccion = redireccionarUsuario(user.getRolidRol1().getIdRol1());
+            }else{
+                FacesMessage message;
+                
+                message = new FacesMessage("Usuario y/o contraseña incorrectos.");
+                context.addMessage(null, message);
+                redireccion = "index";
+            }            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return redireccion;
+    }
+    
+    public String redireccionarUsuario(String tipoUsuario){
+        switch(tipoUsuario){
+            case "admin":
+                return"indexAdministrador";
+            default: 
+            return "indexPropietario";
+        }
+    }
     public AdministradorController() {
     }
 
@@ -42,7 +89,7 @@ public class AdministradorController implements Serializable {
     private AdministradorFacade getFacade() {
         return ejbFacade;
     }
-
+/*
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -229,6 +276,6 @@ public class AdministradorController implements Serializable {
             }
         }
 
-    }
+    }*/
 
 }

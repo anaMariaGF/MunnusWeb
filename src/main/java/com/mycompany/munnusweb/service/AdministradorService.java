@@ -12,6 +12,7 @@ import javax.ejb.Local;
  *
  * @author ana
  */
+
 @Local 
 public interface AdministradorService {
     

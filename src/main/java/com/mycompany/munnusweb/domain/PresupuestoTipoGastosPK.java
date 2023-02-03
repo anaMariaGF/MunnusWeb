@@ -4,19 +4,18 @@
  */
 package com.mycompany.munnusweb.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
 
 /**w
  *
  * @author ana
  */
 @Embeddable
-public class PresupuestoTipoGastosPK {
+public class PresupuestoTipoGastosPK implements Serializable {
   
     @Column(name="presuesto_id_Presupuesto")
     private Integer idPresupuesto;
@@ -83,9 +82,4 @@ public class PresupuestoTipoGastosPK {
         return Objects.equals(this.idTipoGastos, other.idTipoGastos);
     }
 
-    
-    
-    
-    
-    
 }

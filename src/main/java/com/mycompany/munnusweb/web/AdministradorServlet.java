@@ -55,7 +55,7 @@ public class AdministradorServlet extends HttpServlet {
         // Ponemos personas en un alcance, a request se le pueden setear uno o varios atributos
         request.setAttribute("administradores", administradores);
 
-        // Redirigimos al JSP
+        // Redirigimos al JSP, a la url donde muestrro esta lista 
         request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request,
                 respose);
 

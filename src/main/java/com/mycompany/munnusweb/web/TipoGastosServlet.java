@@ -4,10 +4,8 @@
  */
 package com.mycompany.munnusweb.web;
 
-import com.mycompany.munnusweb.domain.Factura;
-import com.mycompany.munnusweb.domain.Propietario;
-import com.mycompany.munnusweb.service.FacturaServiceImp;
-import com.mycompany.munnusweb.service.PropietarioServiceImp;
+import com.mycompany.munnusweb.domain.TipoGastos;
+import com.mycompany.munnusweb.service.TipoGastosServiceImp;
 import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
@@ -21,13 +19,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ana
  */
-@WebServlet("/facturas")
-public class FacturaServlet extends HttpServlet{
-        
+@WebServlet("/tipoGastos")
+public class TipoGastosServlet extends HttpServlet {
+    
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    FacturaServiceImp facturaService; // Cremos una instancia de nuestra if local
+    TipoGastosServiceImp tipoGastosService; // Cremos una instancia de nuestra if local
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse respose)
@@ -36,15 +34,14 @@ public class FacturaServlet extends HttpServlet{
         /** Ahora este método va acceder al listado de personas por medio
          * de la instancia que estamos recibiendo el EJB         
          */
-        List<Factura> facturas = facturaService.listarFacturas();
-        System.out.println(""
-                + "Facturas : " + facturas );
+        List<TipoGastos> tipoGastosL = tipoGastosService.listarTipoGastos();
+        System.out.println("Tipos de gastos: " + tipoGastosL);
         
         // Ponemos personas en un alcance, a request se le pueden setear uno o varios atributos
-        request.setAttribute("Facturas", facturas );
+        request.setAttribute("Tipos de gastos", tipoGastosL);
         
         // Redirigimos al JSP
-        request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, 
+        request.getRequestDispatcher("/listadoTipoGastos.jsp").forward(request, 
                 respose);
     }
     

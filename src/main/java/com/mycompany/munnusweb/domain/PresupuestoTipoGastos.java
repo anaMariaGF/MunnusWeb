@@ -25,7 +25,7 @@ public class PresupuestoTipoGastos implements Serializable {
 
     @EmbeddedId
     private PresupuestoTipoGastosPK id;
-
+    
     @ManyToOne
     @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto")
     @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_Administrador")
