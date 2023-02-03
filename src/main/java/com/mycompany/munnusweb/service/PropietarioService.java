@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author ana
  */
 @Local
-interface PropietarioService {
+public interface PropietarioService {
    
     public List<Propietario> listarPropietarios();
     public Propietario encontrarPropietariPorID(Propietario propietario);

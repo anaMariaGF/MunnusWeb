@@ -7,13 +7,13 @@ package com.mycompany.munnusweb.data;
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.domain.PresupuestoPK;
 import java.util.List;
-import javax.ejb.Local;
+
 
 /**
  *
  * @author ana
  */
-@Local
+
 public interface PresupuestoDao {
     
     public List<Presupuesto> findAllPresupuestos() ;

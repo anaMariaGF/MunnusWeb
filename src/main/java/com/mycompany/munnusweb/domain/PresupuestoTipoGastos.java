@@ -30,7 +30,7 @@ public class PresupuestoTipoGastos implements Serializable {
     @ManyToOne
 
      @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto",insertable=false, updatable=false)
-     @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_Administrador",insertable=false, updatable=false)            
+     @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_tipo_gastos",insertable=false, updatable=false)            
 
     private Presupuesto presupuesto;
     

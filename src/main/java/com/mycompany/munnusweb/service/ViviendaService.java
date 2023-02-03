@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author ana
  */
 @Local
-interface ViviendaService {
+public interface ViviendaService {
     public List<Vivienda> listarViviendas();
     public Vivienda encontrarViviendaPorID(Vivienda vivienda);
     public Vivienda econtrarViviendaPorPropietario(Vivienda vivienda);

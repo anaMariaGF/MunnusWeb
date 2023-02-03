@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * @author ana
  */
 @Local
-interface PresupuestoService {
+public interface PresupuestoService {
     public List<Presupuesto> listarPresupuestos();
     public Presupuesto encontrarPresupuestoPorID(PresupuestoPK presupuesto);
     public void registrarPresupuesto(Presupuesto presupuesto);

@@ -12,8 +12,8 @@ import javax.ejb.Local;
  *
  * @author ana
  */
-@Local 
-interface AdministradorService {
+@Local  //notación que transforma en un proceso dependiende
+public interface AdministradorService {
     
     public List<Administrador> listarAdministradores();
     
