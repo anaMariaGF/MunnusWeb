@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="munnusPU" transaction-type="JTA">
-      <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+      
+          <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 <!--      <jta-data-source>jdbc/puebamunnus</jta-data-source>-->
+         <!-- https://www.youtube.com/watch?v=Ol2eVx2mDD4&list=PLQHg_3LIshW3JeEVuAXWdgEfb1wEpWTzk&index=1  configuracion jta-->
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
@@ -16,7 +18,7 @@
         <property name="hibernate.connection.password"
                    value="qwerty" />
         <property name="hibernate.connection.url"
-            value="jdbc:mysql://localhost:3306/pruebamunnus" />
+            value="jdbc:mysql://localhost:33060/pruebamunnus" />
     
         <property name="hibernate.show_sql" value="true" /> 
 

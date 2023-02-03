@@ -26,7 +26,7 @@ public class PresupuestoTipoGastosPK {
     private Integer idPresupuestoAdmin;
     
  
-    @Column(name="tipo_gastos_id_tipo_gastos")
+    @Column(name="TIPO_GASTOS_ID_TIPO_GASTOS")
     private Integer idTipoGastos;
 
     public Integer getIdPresupuesto() {

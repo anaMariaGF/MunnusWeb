@@ -10,6 +10,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 /**
@@ -21,21 +22,19 @@ import javax.persistence.Table;
 @Table(name = "presupuesto_has_tipo_gastos")
 
 public class PresupuestoTipoGastos implements Serializable {
-    
-   
+
     @EmbeddedId
     private PresupuestoTipoGastosPK id;
-    
-    
+
     @ManyToOne
-
-     @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto",insertable=false, updatable=false)
-     @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_Administrador",insertable=false, updatable=false)            
-
+    @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto")
+    @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_Administrador")
+    @MapsId("idPresupuesto")
     private Presupuesto presupuesto;
-    
+
     @ManyToOne
-    @JoinColumn(name=" tipo_gastos_id_tipo_gastos",insertable=false, updatable=false)
+    @MapsId("idTipoGastos")
+    @JoinColumn(name = " TIPO_GASTOS_ID_TIPO_GASTOS")
     private TipoGastos tipoGastos;
 
     public PresupuestoTipoGastosPK getId() {
@@ -91,7 +90,5 @@ public class PresupuestoTipoGastos implements Serializable {
         }
         return Objects.equals(this.tipoGastos, other.tipoGastos);
     }
-    
-    
-    
+
 }

@@ -35,20 +35,25 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoGastos.findByDescripcion", query = "SELECT t FROM TipoGastos t WHERE t.descripcion = :descripcion")})
 public class TipoGastos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "TIPO_GASTOS_ID_TIPO_GASTOS")
+    private Integer idTipoGasto;
+    
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "descripcion")
     private String descripcion;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_tipo_gasto")
-    private Integer idTipoGasto;
+    
     @OneToMany(mappedBy = "tipoGastos")
     private Collection<PresupuestoTipoGastos> presupuestoTipoGastos;
+    
+    
 
     public TipoGastos() {
     }
