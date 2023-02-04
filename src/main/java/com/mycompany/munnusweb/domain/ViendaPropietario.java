@@ -18,28 +18,25 @@ import javax.persistence.Table;
  */
 @Entity // indica que se trata de una clase de entidad, es decir, que hace referencia a una tabla de la base de datos. 
 @Table(name = "propietario_has_vivienda") // indica el nombre de la tabla a la que hace referencia.
-public class viviendaPropietario implements Serializable  {
-    
-     @EmbeddedId // indica que la clave primaria va a estar contenida en la clase viviendaPropietario.
-    private viviendaPropietario id;
-    
+public class ViendaPropietario implements Serializable {
+
+    @EmbeddedId // indica que la clave primaria va a estar contenida en la clase viviendaPropietario.
+    private ViendaPropietarioPK id;
 
     @ManyToOne //indica que la clase viviendaPropietario está relacionada con la clase Propietario y Vivienda.
-
-     @JoinColumn(name = "propietario_id_Propietario", referencedColumnName = "id_Propietario",insertable=false, updatable=false)
-                
+    @JoinColumn(name = "propietario_id_Propietario", referencedColumnName = "id_Propietario", insertable = false, updatable = false)
 
     private Propietario propietario;
-    
+
     @ManyToOne
-    @JoinColumn(name = "vivienda_id_Vivienda", referencedColumnName = "id_Vivienda",insertable=false, updatable=false)
+    @JoinColumn(name = "vivienda_id_Vivienda", referencedColumnName = "id_Vivienda", insertable = false, updatable = false)
     private Vivienda vienda;
 
-    public viviendaPropietario getId() {
+    public ViendaPropietarioPK getId() {
         return id;
     }
 
-    public void setId(viviendaPropietario id) {
+    public void setId(ViendaPropietarioPK id) {
         this.id = id;
     }
 
@@ -68,28 +65,6 @@ public class viviendaPropietario implements Serializable  {
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final viviendaPropietario other = (viviendaPropietario) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.propietario, other.propietario)) {
-            return false;
-        }
-        return Objects.equals(this.vienda, other.vienda);
-    }
-    
     
 
-    
 }
