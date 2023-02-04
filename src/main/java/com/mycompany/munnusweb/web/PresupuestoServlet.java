@@ -7,6 +7,7 @@ package com.mycompany.munnusweb.web;
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.service.FacturaServiceImp;
+import com.mycompany.munnusweb.service.PresupuestoService;
 import com.mycompany.munnusweb.service.PresupuestoServiceImp;
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +28,7 @@ public class PresupuestoServlet extends HttpServlet {
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    PresupuestoServiceImp presupuestoService; // Cremos una instancia de nuestra if local
+    PresupuestoService presupuestoService; // Cremos una instancia de nuestra if local
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse respose)

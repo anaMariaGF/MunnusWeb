@@ -20,6 +20,7 @@ public class FacturaServiceImp implements FacturaService {
     @Inject    
     private FacturaDao facturaDao;
     
+           
     // Ahora nos apoyamos de la interfaz para completar los servicios
     
     @Override

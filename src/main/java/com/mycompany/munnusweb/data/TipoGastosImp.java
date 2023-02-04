@@ -54,7 +54,15 @@ public class TipoGastosImp implements TipoGastosDao {
 
     @Override
     public void insertTipoGasto(TipoGastos tipoGasto) {
+        
+        System.out.println("com.mycompany.munnusweb.data.TipoGastosImp.insertTipoGasto()" + "se hace persiset "); 
         em.persist(tipoGasto);
+        
+        
+        
+        System.out.println("com.mycompany.munnusweb.data.TipoGastosImp.insertTipoGasto()"+ "se ha alamcendao ");
+        
+        
     }
 
     @Override

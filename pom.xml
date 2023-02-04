@@ -21,92 +21,47 @@
         <jakartaee>8.0</jakartaee>
     </properties>
 
-<repositories>
-   <repository>
-      <id>JBoss</id>
-      <name>JBoss Repsitory</name>
-      <layout>default</layout>
-      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-   </repository>
-</repositories>
+    <repositories>
+        <repository>
+            <id>JBoss</id>
+            <name>JBoss Repsitory</name>
+            <layout>default</layout>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
  
     <!--Este código corresponde a una dependencia de Maven usada para proyectos 
     JavaEE. La dependencia específica es la API JavaEE y se utiliza con la 
     versión de JakartaEE especificada como propiedad. El alcance de la 
     dependencia es "provided", lo que significa que no se incluirá en los 
     archivos de compilación de salida.-->
-<dependencies>
+    <dependencies>
     
-            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-   <dependency>
-       <groupId>mysql</groupId>
-       <artifactId>mysql-connector-java</artifactId>
-       <version>8.0.32</version>
-   </dependency>    
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+        </dependency>    
         
-           <!-- slf4j -->
-   <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.5.8</version>
-      <scope>runtime</scope>
-   </dependency>
+        <!-- slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.8</version>
+            <scope>runtime</scope>
+        </dependency>
    
-        <!-- Hibernate -->
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-entitymanager</artifactId>
-        <version>5.2.3.Final</version>
-    </dependency>
-    <dependency>
-        <groupId>org.eclipse.persistence</groupId>
-        <artifactId>org.eclipse.persistence.core</artifactId>
-      <version>2.7.10</version>
-      <scope>provided</scope>
-    </dependency>
-  <dependency>
+    <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+<dependency>
     <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.asm</artifactId>
-    <version>9.2.0</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.antlr</artifactId>
-    <version>2.7.10</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.jpa</artifactId>
-    <version>2.7.10</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.jpa.jpql</artifactId>
-    <version>2.7.10</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.moxy</artifactId>
-    <version>2.7.10</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>jakarta.persistence</artifactId>
-    <version>2.2.3</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-    <version>2.7.10</version>
-    <scope>provided</scope>
-  </dependency>
-  <dependency>
+    <artifactId>eclipselink</artifactId>
+    <version>2.7.11</version>
+</dependency>
+
+  
+  
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${jakartaee}</version>
@@ -114,7 +69,7 @@
         </dependency>
     </dependencies>
     
-     <build>
+    <build>
         <plugins>
             <!--Este código corresponde al plugin de maven-compiler-plugin, el 
             cual se utiliza para compilar el código fuente a código binario.

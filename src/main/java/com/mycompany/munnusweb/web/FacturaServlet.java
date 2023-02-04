@@ -6,6 +6,7 @@ package com.mycompany.munnusweb.web;
 
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.domain.Propietario;
+import com.mycompany.munnusweb.service.FacturaService;
 import com.mycompany.munnusweb.service.FacturaServiceImp;
 import com.mycompany.munnusweb.service.PropietarioServiceImp;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class FacturaServlet extends HttpServlet{
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    FacturaServiceImp facturaService; // Cremos una instancia de nuestra if local
+    FacturaService facturaService; // Cremos una instancia de nuestra if local
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse respose)
@@ -47,5 +48,7 @@ public class FacturaServlet extends HttpServlet{
         request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, 
                 respose);
     }
+    
+    
     
 }

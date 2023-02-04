@@ -6,6 +6,7 @@ package com.mycompany.munnusweb.web;
 
 
 import com.mycompany.munnusweb.domain.Vivienda;
+import com.mycompany.munnusweb.service.ViviendaService;
 import com.mycompany.munnusweb.service.ViviendaServiceImp;
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ViviendaServlet extends HttpServlet {
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    ViviendaServiceImp viviendaService; // Cremos una instancia de nuestra if local
+    ViviendaService viviendaService; // Cremos una instancia de nuestra if local
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse respose)

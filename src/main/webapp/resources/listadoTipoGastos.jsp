@@ -14,8 +14,12 @@
     </head>
     <body>
          <h1>Listado de Tipo Gastos</h1>
+         
+         
+       
         <ul>  
-            <c:forEach items="${tipoGastos}" var="gasto">
+            <c:forEach  var="gasto" items="${tipoGastos}">
+                <c:out value="${gasto}" />
                 <li>${gasto.idTipoGasto} ${gasto.descripcion}</li>
             </c:forEach>
         </ul>

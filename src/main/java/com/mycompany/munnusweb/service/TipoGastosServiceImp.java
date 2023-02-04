@@ -39,6 +39,7 @@ public class TipoGastosServiceImp implements TipoGastosService{
 
     @Override
     public void registrarTipoGasto(TipoGastos gasto) {
+        System.out.println("com.mycompany.munnusweb.service.TipoGastosServiceImp.registrarTipoGasto()" +" se va a registar");
         tipoGastosDao.insertTipoGasto(gasto);
     }
 
