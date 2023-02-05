@@ -6,6 +6,7 @@ package com.mycompany.munnusweb.service;
 
 import com.mycompany.munnusweb.domain.Administrador;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Local;
 
 /**
@@ -18,9 +19,9 @@ public interface AdministradorService {
     
     public List<Administrador> listarAdministradores();
     
-    public Administrador encontrarAdministradorPorID(Administrador administrador);
+    public Optional<Administrador> encontrarAdministradorPorID(int id);
     
-    public Administrador encontrarAdministradorPorMatriculaAbogado(Administrador administrador);
+    public Optional<Administrador> encontrarAdministradorPorMatriculaAbogado(String matricula);
 
     public void registrarAdministrador(Administrador administrador);
     

@@ -5,6 +5,7 @@
 package com.mycompany.munnusweb.web;
 
 import com.mycompany.munnusweb.domain.Propietario;
+import com.mycompany.munnusweb.domain.TipoGastos;
 import com.mycompany.munnusweb.service.PropietarioService;
 import com.mycompany.munnusweb.service.PropietarioServiceImp;
 import java.io.IOException;
@@ -43,6 +44,6 @@ public class PropietarioServlet extends HttpServlet  {
         
         // Redirigimos al JSP
         request.getRequestDispatcher("/listadoPropietarios.jsp").forward(request, 
-                respose);
-    }
+                respose);    
+}
 }

@@ -88,8 +88,8 @@ public class Administrador implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob()
-    @Column(name = "estadoCuentaA")
-    private byte[] estadoCuentaA;
+    @Column(name = "estadoCuentaA",length=1)
+    private String estadoCuentaA;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,11 +105,16 @@ public class Administrador implements Serializable {
     public Administrador() {
     }
 
+    public Administrador(String email) {
+        this.email = email;
+    }
+    
+    
     public Administrador(Integer idAdministrador) {
         this.idAdministrador = idAdministrador;
     }
 
-    public Administrador(Integer idAdministrador, String nif, String matriculaAbogado, String nombres, String apellidos, String telefono, String email, String clave, byte[] estadoCuentaA) {
+    public Administrador(Integer idAdministrador, String nif, String matriculaAbogado, String nombres, String apellidos, String telefono, String email, String clave, String estadoCuentaA) {
         this.idAdministrador = idAdministrador;
         this.nif = nif;
         this.matriculaAbogado = matriculaAbogado;
@@ -213,11 +218,11 @@ public class Administrador implements Serializable {
         this.clave = clave;
     }
 
-    public byte[] getEstadoCuentaA() {
+    public String getEstadoCuentaA() {
         return estadoCuentaA;
     }
 
-    public void setEstadoCuentaA(byte[] estadoCuentaA) {
+    public void setEstadoCuentaA(String estadoCuentaA) {
         this.estadoCuentaA = estadoCuentaA;
     }
 
@@ -244,6 +249,10 @@ public class Administrador implements Serializable {
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    public void setEstadoCuentaA(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

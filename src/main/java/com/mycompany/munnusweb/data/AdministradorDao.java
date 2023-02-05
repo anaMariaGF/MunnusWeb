@@ -6,6 +6,7 @@ package com.mycompany.munnusweb.data;
 
 import com.mycompany.munnusweb.domain.Administrador;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -17,9 +18,9 @@ public interface AdministradorDao {
     
     public List<Administrador> findAllAdministrador();
     
-    public Administrador findAdministradorByID(Administrador administrador);
+    public Optional<Administrador> findAdministradorByID(int idAdmin);
     
-    public Administrador findAdministradorByMatriculaAbogado(Administrador administrador);
+    public Optional<Administrador> findAdministradorByMatriculaAbogado(String matriculaABuscar);
     
     public void insertAdministrador(Administrador administrador);
 

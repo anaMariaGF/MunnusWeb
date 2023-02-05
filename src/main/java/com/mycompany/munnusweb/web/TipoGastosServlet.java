@@ -6,7 +6,6 @@ package com.mycompany.munnusweb.web;
 
 import com.mycompany.munnusweb.domain.TipoGastos;
 import com.mycompany.munnusweb.service.TipoGastosService;
-import com.mycompany.munnusweb.service.TipoGastosServiceImp;
 import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;

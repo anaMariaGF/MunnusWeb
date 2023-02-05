@@ -6,6 +6,7 @@ package com.mycompany.munnusweb.data;
 
 import com.mycompany.munnusweb.domain.Administrador;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,19 +38,23 @@ public class AdministradorDaoImp implements AdministradorDao  {
     }
 
     @Override
-    public Administrador findAdministradorByID(Administrador administrador) {
+    public Optional<Administrador> findAdministradorByID(int idAdmin){
         // Especificamos la clase que queremos buscar y luego el campo por el 
         // que queremos buscar
-        return em.find(Administrador.class, administrador.getIdAdministrador());
+        
+        return Optional.ofNullable(em.find(Administrador.class, idAdmin));
     }
 
     @Override
-    public Administrador findAdministradorByMatriculaAbogado(Administrador administrador) {
+    public Optional<Administrador> findAdministradorByMatriculaAbogado(String  matricula) {
+       
+         
         // En este caso no vamos a usar un NamedQuery, que podríamos haber 
         // agregado en la Entidad de Usuario sino que vamos a incluirlo directamente.
         Query query = em.createQuery("Administrador.findByMatriculaAbogado");
-        query.setParameter("matriculaAbogado", administrador.getMatriculaAbogado());
-        return (Administrador) query.getSingleResult();                
+        query.setParameter("matriculaAbogado", matricula);
+        return  Optional.ofNullable((Administrador) query.getSingleResult());
+                
     }
 
     @Override
