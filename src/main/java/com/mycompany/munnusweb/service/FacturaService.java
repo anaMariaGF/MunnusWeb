@@ -4,9 +4,11 @@
  */
 package com.mycompany.munnusweb.service;
 
-import com.mycompany.munnusweb.domain.Factura;
 import java.util.List;
+
 import javax.ejb.Local; //java been de tipo local 
+
+import com.mycompany.munnusweb.domain.Factura;
 
 /**
  *
@@ -14,12 +16,16 @@ import javax.ejb.Local; //java been de tipo local
  */
 @Local
 public interface FacturaService {
-    public List<Factura> listarFacturas();
-    public Factura encontrarFacturaPorID(Factura factura);
-    public void registrarUsuario(Factura factura);
-    public void modificarUsuario(Factura factura);
-    public void eliminarUsuario(Factura factura);
-    
-    //generar factura
-    //calcular factura
+	public List<Factura> listarFacturas();
+
+	public Factura encontrarFacturaPorID(Factura factura);
+
+	public void registrarUsuario(Factura factura);
+
+	public void modificarUsuario(Factura factura);
+
+	public void eliminarUsuario(Factura factura);
+
+	// generar factura
+	// calcular factura
 }

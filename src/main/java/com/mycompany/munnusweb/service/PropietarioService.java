@@ -4,9 +4,11 @@
  */
 package com.mycompany.munnusweb.service;
 
-import com.mycompany.munnusweb.domain.Propietario;
 import java.util.List;
+
 import javax.ejb.Local;
+
+import com.mycompany.munnusweb.domain.Propietario;
 
 /**
  *
@@ -14,12 +16,17 @@ import javax.ejb.Local;
  */
 @Local
 public interface PropietarioService {
-   
-    public List<Propietario> listarPropietarios();
-    public Propietario encontrarPropietariPorID(Propietario propietario);
-    public Propietario econtrarUsuarioPorEmail (Propietario propietario);
-    public void registrarUsuario(Propietario propietario);
-    public void modificarUsuario(Propietario propietario);
-    public void eliminarUsuario(Propietario propietario);
-    
+
+	public List<Propietario> listarPropietarios();
+
+	public Propietario encontrarPropietariPorID(Propietario propietario);
+
+	public Propietario econtrarUsuarioPorEmail(Propietario propietario);
+
+	public void registrarUsuario(Propietario propietario);
+
+	public void modificarUsuario(Propietario propietario);
+
+	public void eliminarUsuario(Propietario propietario);
+
 }

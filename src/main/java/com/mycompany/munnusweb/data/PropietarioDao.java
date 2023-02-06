@@ -4,24 +4,25 @@
  */
 package com.mycompany.munnusweb.data;
 
-import com.mycompany.munnusweb.domain.Propietario;
 import java.util.List;
+
+import com.mycompany.munnusweb.domain.Propietario;
 
 /**
  *
  * @author ana
  */
 public interface PropietarioDao {
-    
-    public List<Propietario> findAllPropietario() ;
-    
-    public Propietario findPropietarioByID(Propietario propietario);
-    
-    public Propietario findPropietarioByEmail(Propietario propietario);
-    
-    public void insertPropietario(Propietario propietario) ;
 
-    public void updatePropietario(Propietario propietario);
-    
-    public void  deletePropietario(Propietario propietario);  
+	public List<Propietario> findAllPropietario();
+
+	public Propietario findPropietarioByID(Propietario propietario);
+
+	public Propietario findPropietarioByEmail(Propietario propietario);
+
+	public void insertPropietario(Propietario propietario);
+
+	public void updatePropietario(Propietario propietario);
+
+	public void deletePropietario(Propietario propietario);
 }

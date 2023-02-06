@@ -4,54 +4,53 @@
  */
 package com.mycompany.munnusweb.service;
 
-import com.mycompany.munnusweb.data.PresupuestoDao;
-import com.mycompany.munnusweb.data.TipoGastosDao;
-import com.mycompany.munnusweb.domain.Presupuesto;
-import com.mycompany.munnusweb.domain.PresupuestoPK;
-import com.mycompany.munnusweb.domain.TipoGastos;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import com.mycompany.munnusweb.data.TipoGastosDao;
+import com.mycompany.munnusweb.domain.TipoGastos;
 
 /**
  *
  * @author ana
  */
-    @Stateless
-public class TipoGastosServiceImp implements TipoGastosService{
-    
-    // Gracias a que estamos en un entorno EE podemos usar CDI para inyectar usuarioDao
-    @Inject    
-    private TipoGastosDao tipoGastosDao;
-    
-    // Ahora nos apoyamos de la interfaz para completar los servicios
-    
-    @Override
-    public List<TipoGastos> listarTipoGastos() {       
-        return tipoGastosDao.findAllTipoGasto();
-    }
+@Stateless
+public class TipoGastosServiceImp implements TipoGastosService {
 
-    @Override
-    public TipoGastos encontrarTipoGastosPorID(TipoGastos gasto) {
-        return tipoGastosDao.findByIdTipoGasto(gasto);
-    }
+	// Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
+	// usuarioDao
+	@Inject
+	private TipoGastosDao tipoGastosDao;
 
+	// Ahora nos apoyamos de la interfaz para completar los servicios
 
-    @Override
-    public void registrarTipoGasto(TipoGastos gasto) {
-        System.out.println("com.mycompany.munnusweb.service.TipoGastosServiceImp.registrarTipoGasto()" +" se va a registar");
-        tipoGastosDao.insertTipoGasto(gasto);
-    }
+	@Override
+	public List<TipoGastos> listarTipoGastos() {
+		return tipoGastosDao.findAllTipoGasto();
+	}
 
-    @Override
-    public void modificarTipoGastos(TipoGastos gasto) {
-        tipoGastosDao.updateTipoGasto(gasto);
-    }
+	@Override
+	public TipoGastos encontrarTipoGastosPorID(TipoGastos gasto) {
+		return tipoGastosDao.findByIdTipoGasto(gasto);
+	}
 
-    @Override
-    public void eliminarTipoGasto(TipoGastos gasto) {
-        tipoGastosDao.deleteTipoGasto(gasto);
-    }
-    
-    
+	@Override
+	public void registrarTipoGasto(TipoGastos gasto) {
+		System.out.println(
+				"com.mycompany.munnusweb.service.TipoGastosServiceImp.registrarTipoGasto()" + " se va a registar");
+		tipoGastosDao.insertTipoGasto(gasto);
+	}
+
+	@Override
+	public void modificarTipoGastos(TipoGastos gasto) {
+		tipoGastosDao.updateTipoGasto(gasto);
+	}
+
+	@Override
+	public void eliminarTipoGasto(TipoGastos gasto) {
+		tipoGastosDao.deleteTipoGasto(gasto);
+	}
+
 }

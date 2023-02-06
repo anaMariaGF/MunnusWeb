@@ -10,11 +10,8 @@ package com.mycompany.munnusweb.util;
  */
 public class ExcepcionNegocio extends Exception {
 
-    public ExcepcionNegocio(String string) {
-        super(string);
-    }
-    
-    
-    
-    
+	public ExcepcionNegocio(String string) {
+		super(string);
+	}
+
 }

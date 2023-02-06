@@ -4,10 +4,12 @@
  */
 package com.mycompany.munnusweb.service;
 
+import java.util.List;
+
+import javax.ejb.Local;
+
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.domain.PresupuestoPK;
-import java.util.List;
-import javax.ejb.Local;
 
 /**
  *
@@ -15,10 +17,14 @@ import javax.ejb.Local;
  */
 @Local
 public interface PresupuestoService {
-    public List<Presupuesto> listarPresupuestos();
-    public Presupuesto encontrarPresupuestoPorID(PresupuestoPK presupuesto);
-    public void registrarPresupuesto(Presupuesto presupuesto);
-    public void modificarPresupuesto(Presupuesto presupuesto);
-    public void eliminarPresupuesto(Presupuesto presupuesto);
-    
+	public List<Presupuesto> listarPresupuestos();
+
+	public Presupuesto encontrarPresupuestoPorID(PresupuestoPK presupuesto);
+
+	public void registrarPresupuesto(Presupuesto presupuesto);
+
+	public void modificarPresupuesto(Presupuesto presupuesto);
+
+	public void eliminarPresupuesto(Presupuesto presupuesto);
+
 }

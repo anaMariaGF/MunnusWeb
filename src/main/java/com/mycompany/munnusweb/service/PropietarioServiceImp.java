@@ -4,11 +4,13 @@
  */
 package com.mycompany.munnusweb.service;
 
-import com.mycompany.munnusweb.data.PropietarioDao;
-import com.mycompany.munnusweb.domain.Propietario;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import com.mycompany.munnusweb.data.PropietarioDao;
+import com.mycompany.munnusweb.domain.Propietario;
 
 /**
  *
@@ -16,41 +18,41 @@ import javax.inject.Inject;
  */
 @Stateless
 public class PropietarioServiceImp implements PropietarioService {
-      // Gracias a que estamos en un entorno EE podemos usar CDI para inyectar usuarioDao
-    @Inject    
-    private PropietarioDao propietarioDao;
-    
-    // Ahora nos apoyamos de la interfaz para completar los servicios
-    
-    @Override
-    public List<Propietario> listarPropietarios() {       
-        return propietarioDao.findAllPropietario() ;
-    }
+	// Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
+	// usuarioDao
+	@Inject
+	private PropietarioDao propietarioDao;
 
-    @Override
-    public Propietario encontrarPropietariPorID(Propietario propietario) {
-        return propietarioDao.findPropietarioByID(propietario);
-    }
+	// Ahora nos apoyamos de la interfaz para completar los servicios
 
-    @Override
-    public Propietario econtrarUsuarioPorEmail (Propietario propietario) {
-        return propietarioDao.findPropietarioByEmail(propietario);
-    }
+	@Override
+	public List<Propietario> listarPropietarios() {
+		return propietarioDao.findAllPropietario();
+	}
 
-    @Override
-    public void registrarUsuario(Propietario propietario) {
-        propietarioDao.insertPropietario(propietario);
-    }
+	@Override
+	public Propietario encontrarPropietariPorID(Propietario propietario) {
+		return propietarioDao.findPropietarioByID(propietario);
+	}
 
-    @Override
-    public void modificarUsuario(Propietario propietario) {
-        propietarioDao.updatePropietario(propietario);
-    }
+	@Override
+	public Propietario econtrarUsuarioPorEmail(Propietario propietario) {
+		return propietarioDao.findPropietarioByEmail(propietario);
+	}
 
-    @Override
-    public void eliminarUsuario(Propietario propietario) {
-        propietarioDao.deletePropietario(propietario);
-    }
-    
-    
+	@Override
+	public void registrarUsuario(Propietario propietario) {
+		propietarioDao.insertPropietario(propietario);
+	}
+
+	@Override
+	public void modificarUsuario(Propietario propietario) {
+		propietarioDao.updatePropietario(propietario);
+	}
+
+	@Override
+	public void eliminarUsuario(Propietario propietario) {
+		propietarioDao.deletePropietario(propietario);
+	}
+
 }

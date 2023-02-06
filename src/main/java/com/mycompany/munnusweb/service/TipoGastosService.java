@@ -4,9 +4,11 @@
  */
 package com.mycompany.munnusweb.service;
 
-import com.mycompany.munnusweb.domain.TipoGastos;
 import java.util.List;
+
 import javax.ejb.Local;
+
+import com.mycompany.munnusweb.domain.TipoGastos;
 
 /**
  *
@@ -14,11 +16,15 @@ import javax.ejb.Local;
  */
 @Local
 public interface TipoGastosService {
-       
-    public List<TipoGastos> listarTipoGastos();
-    public TipoGastos encontrarTipoGastosPorID(TipoGastos gasto);
-    public void registrarTipoGasto(TipoGastos gasto);
-    public void modificarTipoGastos(TipoGastos gasto);
-    public void eliminarTipoGasto(TipoGastos gasto);
-    
+
+	public List<TipoGastos> listarTipoGastos();
+
+	public TipoGastos encontrarTipoGastosPorID(TipoGastos gasto);
+
+	public void registrarTipoGasto(TipoGastos gasto);
+
+	public void modificarTipoGastos(TipoGastos gasto);
+
+	public void eliminarTipoGasto(TipoGastos gasto);
+
 }

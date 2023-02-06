@@ -4,19 +4,25 @@
  */
 package com.mycompany.munnusweb.data;
 
-import com.mycompany.munnusweb.domain.TipoGastos;
 import java.util.List;
+
+import com.mycompany.munnusweb.domain.TipoGastos;
 
 /**
  *
  * @author ana
  */
 public interface TipoGastosDao {
-    public List<TipoGastos> findAllTipoGasto();
-    public TipoGastos findByIdTipoGasto(TipoGastos tipoGastos);
-    public TipoGastos findByDescripcion(TipoGastos tipoGasto);
-    public void insertTipoGasto(TipoGastos tipoGasto);
-    public void updateTipoGasto(TipoGastos tipoGasto);
-    public void deleteTipoGasto(TipoGastos tipoGasto);   
-    
+	public List<TipoGastos> findAllTipoGasto();
+
+	public TipoGastos findByIdTipoGasto(TipoGastos tipoGastos);
+
+	public TipoGastos findByDescripcion(TipoGastos tipoGasto);
+
+	public void insertTipoGasto(TipoGastos tipoGasto);
+
+	public void updateTipoGasto(TipoGastos tipoGasto);
+
+	public void deleteTipoGasto(TipoGastos tipoGasto);
+
 }
