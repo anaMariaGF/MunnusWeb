@@ -54,20 +54,9 @@ public class AdministradorServiceImp implements AdministradorService {
         return administradorDao.findAdministradorByMatriculaAbogado(matricula);
     }
 
-    @Override
-    public void registrarAdministrador(Administrador administrador) {
-        administradorDao.insertAdministrador(administrador);
-    }
+    
 
-    @Override
-    public void modificarUsuario(Administrador administrador) {
-        administradorDao.updateAdministrador(administrador);
-    }
 
-    @Override
-    public void eliminarUsuario(Administrador administrador) {
-        administradorDao.deleteAdministrador(administrador);
-    }
 
 
     /*El método "registrarAdministrador" se encarga de registrar un nuevo
@@ -201,19 +190,25 @@ public class AdministradorServiceImp implements AdministradorService {
     encripta. Luego, guarda la nueva contraseña encriptada en la base de datos.
    
      */
-    public void cambioClaveAdministrador(String matricula, String claveVieja, String claveNueva) throws ExcepcionNegocio, NoSuchAlgorithmException {
+    public void cambioClaveAdministrador(String matricula, String claveVieja, String claveNueva) throws ExcepcionNegocio{
 
         // 1. identificar a la persona
         Administrador personaEncontrada = administradorDao.findAdministradorByMatriculaAbogado(matricula).orElseThrow(() -> new ExcepcionNegocio("No se encuentra"));
 
-        // 2. Sí está entocnes verificar antigua clave
-        if (!personaEncontrada.getClave().equals(Encriptador.encriptadoMD5(claveVieja))) {
-            throw new ExcepcionNegocio("Verifique su antigua contraseña");
-        } else {
-
-            // 3. si se cumple entonces actualizar clave
-            personaEncontrada.setClave(Encriptador.encriptadoMD5(claveNueva));
-            administradorDao.updateAdministrador(personaEncontrada);
+        try {
+            // 2. Sí está entocnes verificar antigua clave
+            if (!personaEncontrada.getClave().equals(Encriptador.encriptadoMD5(claveVieja))) {
+                throw new ExcepcionNegocio("Verifique su antigua contraseña");
+            } else {
+                
+                // 3. si se cumple entonces actualizar clave
+                personaEncontrada.setClave(Encriptador.encriptadoMD5(claveNueva));
+                administradorDao.updateAdministrador(personaEncontrada);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            
+              throw new ExcepcionNegocio("Existe un probelma con el eencitrador a");
         }
 
     }
