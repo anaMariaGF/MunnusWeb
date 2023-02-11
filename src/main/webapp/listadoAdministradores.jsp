@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +17,8 @@
         <ul>
             <!--<c:forEach items="${administradores}" var="administrador">-->
                 <li>${administrador.idAdministrador} ${administrador.nif} ${administrador.matriculaAbogado}
-                {administrador.nombres} ${administrador.apellidos} ${administrador.telefono}
-                {administrador.email} ${administrador.clave} ${administrador.estadoCuentaA}</li>
+                ${administrador.nombres} ${administrador.apellidos} ${administrador.telefono}
+                ${administrador.email} ${administrador.estadoCuentaA}</li>
             </c:forEach>
         </ul>
         

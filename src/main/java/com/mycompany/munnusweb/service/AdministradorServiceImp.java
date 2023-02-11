@@ -36,33 +36,33 @@ import com.mycompany.munnusweb.util.Validador;
 @Stateless
 public class AdministradorServiceImp implements AdministradorService {
 
-	// Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
-	// usuarioDao
-	/*
+    // Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
+    // usuarioDao
+    /*
 	 * Esta linea de código es parte de una clase y está usando la
 	 * anotación @Inject. Esto indica que se está inyectando una dependencia de la
 	 * clase AdministradorDao, para que se pueda usar en la clase actual.
-	 */
-	@Inject
-	private AdministradorDao administradorDao;
+     */
+    @Inject
+    private AdministradorDao administradorDao;
 
-	// Ahora nos apoyamos de la interfaz para completar los servicios
-	@Override
-	public List<Administrador> listarAdministradores() {
-		return administradorDao.findAllAdministrador();
-	}
+    // Ahora nos apoyamos de la interfaz para completar los servicios
+    @Override
+    public List<Administrador> listarAdministradores() {
+        return administradorDao.findAllAdministrador();
+    }
 
-	@Override
-	public Optional<Administrador> encontrarAdministradorPorID(int id) {
-		return administradorDao.findAdministradorByID(id);
-	}
+    @Override
+    public Optional<Administrador> encontrarAdministradorPorID(int id) {
+        return administradorDao.findAdministradorByID(id);
+    }
 
-	@Override
-	public Optional<Administrador> encontrarAdministradorPorMatriculaAbogado(String matricula) {
-		return administradorDao.findAdministradorByMatriculaAbogado(matricula);
-	}
+    @Override
+    public Optional<Administrador> encontrarAdministradorPorMatriculaAbogado(String matricula) {
+        return administradorDao.findAdministradorByMatriculaAbogado(matricula);
+    }
 
-	/*
+    /*
 	 * El método "registrarAdministrador" se encarga de registrar un nuevo
 	 * administrador en el sistema. Para ello, solicita al usuario los datos
 	 * necesarios para el administrador, como el email, su nombre, apellidos, NIF,
@@ -70,94 +70,97 @@ public class AdministradorServiceImp implements AdministradorService {
 	 * email y el número de matrícula de abogado no se encuentren en uso, para
 	 * evitar duplicidades. Finalmente, guarda los datos del administrador en la
 	 * base de datos.
-	 */
-	public void registrarAdministrador(String nif, String matriculaAbogado, String nombres, String apellidos,
-			String telefono, String email, String clave) throws ExcepcionNegocio {
+     */
+    public void registrarAdministrador(String nif, String matriculaAbogado, String nombres, String apellidos,
+            String telefono, String email, String clave) throws ExcepcionNegocio {
 
-		List<Administrador> administradores = administradorDao.findAllAdministrador();
+        List<Administrador> administradores = administradorDao.findAllAdministrador();
+        System.err.println("Trae adminitradores  "+ administradores.size());
 
-		boolean esCorreoValido = Validador.validarCorreo(email);
+        boolean esCorreoValido = Validador.validarCorreo(email);
 
-		if (!esCorreoValido) {
-			throw new ExcepcionNegocio("Correo no cumple conel formato establecido  ");
+        if (!esCorreoValido) {
+            throw new ExcepcionNegocio("Correo no cumple conel formato establecido  ");
 
-		}
+        }
 
-		// Verificamos que no exista un correo igual al introducido y si es igual
-		// comparamos el estado de su cuenta
-		/**
-		 * VA VER SI EXIWT EL ADMIN Y SI ES ASI CMBIAR EL ESTADO DEL ADMI
-		 */
-		for (Administrador admin : administradores) {
+        // Verificamos que no exista un correo igual al introducido y si es igual
+        // comparamos el estado de su cuenta
+        /**
+         * VA VER SI EXIWT EL ADMIN Y SI ES ASI CMBIAR EL ESTADO DEL ADMI
+         */
+        for (Administrador admin : administradores) {
 
-			boolean existeElcoreo = admin.getEmail().equals(email);
+            boolean existeElcoreo = admin.getEmail().equals(email);
 
-			boolean existeLaMatricula = admin.getMatriculaAbogado().equals(matriculaAbogado);
+            boolean existeLaMatricula = admin.getMatriculaAbogado().equals(matriculaAbogado);
 
-			if (existeElcoreo && existeLaMatricula) {
-				throw new ExcepcionNegocio("e}l usaurio ya eta registrado   e");
-			}
-			if (existeElcoreo) {
-				// TODO: BUSCAR TECNICA PAOFUSCAR LNIF
-				throw new ExcepcionNegocio("Correo ya existe y esta signado al nif  " + admin.getMatriculaAbogado()
-						+ " si no es us nifo constactese con soporte ");
-			}
+            if (existeElcoreo && existeLaMatricula) {
+                throw new ExcepcionNegocio("e}l usaurio ya eta registrado   e");
+            }
+            if (existeElcoreo) {
+                // TODO: BUSCAR TECNICA PAOFUSCAR LNIF
+                throw new ExcepcionNegocio("Correo ya existe y esta signado al nif  " + admin.getMatriculaAbogado()
+                        + " si no es us nifo constactese con soporte ");
+            }
 
-			if (existeLaMatricula) {
-				// TODO: BUSCAR TECNICA PAOFUSCAR L ECOOREO
-				throw new ExcepcionNegocio(" La matricticulado ya registado con el correo " + admin.getEmail());
+            if (existeLaMatricula) {
+                // TODO: BUSCAR TECNICA PAOFUSCAR L ECOOREO
+                throw new ExcepcionNegocio(" La matricticulado ya registado con el correo " + admin.getEmail());
 
-			}
+            }
 
-		}
+        }
 
-		/**
-		 * va ha ser un admin nuevo
-		 */
-		Administrador adminNuevo = new Administrador();
-		adminNuevo.setNif(nif);
-		adminNuevo.setMatriculaAbogado(matriculaAbogado);
-		adminNuevo.setNombres(nombres);
-		adminNuevo.setApellidos(apellidos);
-		adminNuevo.setTelefono(telefono);
-		adminNuevo.setEmail(email);
-		adminNuevo.setEstadoCuentaA("Y");
-		try {
-			// TODO: AQUI SE PUEDE ENCRITAR LA CONTASEÑA
-			String claveEncriptada = Encriptador.encriptadoMD5(clave);
+        /**
+         * va ha ser un admin nuevo
+         */
+        Administrador adminNuevo = new Administrador();
+        adminNuevo.setNif(nif);
+        adminNuevo.setMatriculaAbogado(matriculaAbogado);
+        adminNuevo.setNombres(nombres);
+        adminNuevo.setApellidos(apellidos);
+        adminNuevo.setTelefono(telefono);
+        adminNuevo.setEmail(email);
+        adminNuevo.setEstadoCuentaA("Y");
+        try {
+            // TODO: AQUI SE PUEDE ENCRITAR LA CONTASEÑA
+            String claveEncriptada = Encriptador.encriptadoMD5(clave);
 
-			adminNuevo.setClave(claveEncriptada);
+            adminNuevo.setClave(claveEncriptada);
 
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
-			throw new ExcepcionNegocio("No se eguarda por que hay un problema conla excrptaciond de la clave ");
-		}
-	
-			administradorDao.insertAdministrador(adminNuevo);
-		
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ExcepcionNegocio("No se eguarda por que hay un problema conla excrptaciond de la clave ");
+        }
 
-	}
+        administradorDao.insertAdministrador(adminNuevo);
+        System.out.println("Se registra admon ");
 
-	/*
+    }
+
+    /*
 	 * El metodo administradorDeBaja() imprime los administradores con la cuenta
 	 * desactivada usando una instancia de la clase Administrador_Dao. Además,
 	 * utiliza un ArrayList para recorrer los administradores y verificar su estado
 	 * de cuenta.
 	 * 
-	 */
-	public void administradorDeBaja(String matriculaAbogado) throws ExcepcionNegocio {
+     */
+    public void administradorDeBaja(String matriculaAbogado) throws ExcepcionNegocio {
 
-		Administrador administrador = administradorDao.findAdministradorByMatriculaAbogado(matriculaAbogado)
-				.orElseThrow(
-						() -> new ExcepcionNegocio("Nos epuee dar de baja , ya que no dese encuntra la matricula"));
+        Administrador administrador = administradorDao.findAdministradorByMatriculaAbogado(matriculaAbogado)
+                .orElseThrow(
+                        () -> new ExcepcionNegocio("Nos epuee dar de baja , ya que no dese encuntra la matricula"));
 
-		administrador.setEstadoCuentaA("N");
+        administrador.setEstadoCuentaA("N");
 
-		administradorDao.updateAdministrador(administrador);
+        administradorDao.updateAdministrador(administrador);
 
-	}
+    }
+    
+    
 
-	/*
+    /*
 	 * El método "validarAdministrador" se encarga de permitir que un administrador
 	 * inicie sesión en el sistema. Para ello, solicita al usuario su número de
 	 * matrícula de abogado y su contraseña. Luego, verifica que los datos
@@ -165,68 +168,68 @@ public class AdministradorServiceImp implements AdministradorService {
 	 * desactivada. Finalmente, devuelve un objeto de tipo Administrador para ser
 	 * utilizado en el inicio de sesión.
 	 * 
-	 */
-	public boolean inicarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio {
+     */
+    public boolean inicarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio {
 
-		try {
+        try {
 
-			String claveEncriptada = Encriptador.encriptadoMD5(clave);
+            String claveEncriptada = Encriptador.encriptadoMD5(clave);
 
-			Optional<Administrador> adminMatricula = administradorDao.findAdministradorByMatriculaAbogado(matricula);
+            Optional<Administrador> adminMatricula = administradorDao.findAdministradorByMatriculaAbogado(matricula);
 
-			if (adminMatricula.isPresent()) {
+            if (adminMatricula.isPresent()) {
 
-				// extraemoe l svor , ya qabemos que no enull
-				Administrador admin = adminMatricula.get();
+                // extraemoe l svor , ya qabemos que no enull
+                Administrador admin = adminMatricula.get();
 
-				if (admin.getClave().equals(claveEncriptada)) {
+                if (admin.getClave().equals(claveEncriptada)) {
 
-					return true;
+                    return true;
 
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
 
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
-			throw new ExcepcionNegocio("Hay un problema con la  ");
-		}
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ExcepcionNegocio("Hay un problema con la  ");
+        }
 
-	}
+    }
 
-	/*
+    /*
 	 * El método "cambioClaveAdministrador" se encarga de permitir que un
 	 * administrador cambie su contraseña. Para ello, recibe como parámetro un
 	 * objeto de tipo Administrador, solicita al usuario una nueva contraseña y la
 	 * encripta. Luego, guarda la nueva contraseña encriptada en la base de datos.
 	 * 
-	 */
-	public void cambioClaveAdministrador(String matricula, String claveVieja, String claveNueva)
-			throws ExcepcionNegocio {
+     */
+    public void cambioClaveAdministrador(String matricula, String claveVieja, String claveNueva)
+            throws ExcepcionNegocio {
 
-		// 1. identificar a la persona
-		Administrador personaEncontrada = administradorDao.findAdministradorByMatriculaAbogado(matricula)
-				.orElseThrow(() -> new ExcepcionNegocio("No se encuentra"));
+        // 1. identificar a la persona
+        Administrador personaEncontrada = administradorDao.findAdministradorByMatriculaAbogado(matricula)
+                .orElseThrow(() -> new ExcepcionNegocio("No se encuentra"));
 
-		try {
-			// 2. Sí está entocnes verificar antigua clave
-			if (!personaEncontrada.getClave().equals(Encriptador.encriptadoMD5(claveVieja))) {
-				throw new ExcepcionNegocio("Verifique su antigua contraseña");
-			} else {
+        try {
+            // 2. Sí está entocnes verificar antigua clave
+            if (!personaEncontrada.getClave().equals(Encriptador.encriptadoMD5(claveVieja))) {
+                throw new ExcepcionNegocio("Verifique su antigua contraseña");
+            } else {
 
-				// 3. si se cumple entonces actualizar clave
-				personaEncontrada.setClave(Encriptador.encriptadoMD5(claveNueva));
-				administradorDao.updateAdministrador(personaEncontrada);
-			}
-		} catch (NoSuchAlgorithmException ex) {
-			Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
+                // 3. si se cumple entonces actualizar clave
+                personaEncontrada.setClave(Encriptador.encriptadoMD5(claveNueva));
+                administradorDao.updateAdministrador(personaEncontrada);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AdministradorServiceImp.class.getName()).log(Level.SEVERE, null, ex);
 
-			throw new ExcepcionNegocio("Existe un probelma con el eencitrador a");
-		}
+            throw new ExcepcionNegocio("Existe un probelma con el eencitrador a");
+        }
 
-	}
+    }
 
 }

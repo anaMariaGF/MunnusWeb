@@ -13,59 +13,55 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.service.AdministradorService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.io.PrintWriter;
 
 /**
  * Servlet implementation class InicioServlet
  */
 @WebServlet("") // para servir el index
 public class InicioServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	@Inject
-	AdministradorService adminService;
+    private static final long serialVersionUID = 1L;
 
-	public InicioServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    @Inject
+    AdministradorService adminService;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		pruebas();
-		request.getRequestDispatcher("index.jsp");
-	}
+    public InicioServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        System.err.println("ingresando");
+        pruebas();
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        //PrintWriter out = response.getWriter();
+        //out.write("Hola ALE");
+    }
 
-	public void pruebas() {
-		try {
-			adminService.registrarAdministrador("a", "1234", "ana", "gomez", "555", "anit@gmail.com", "hola");
-		} catch (ExcepcionNegocio ex) {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
-			// reidirgia una pagian de eror en veira envoar jsp . con atributo de erores
-			Logger.getLogger(InicioServlet.class.getName()).log(Level.SEVERE, null, ex);
-		}
-                catch(Exception e){
-                    System.out.println("com.mycompany.munnusweb.web.InicioServlet.pruebas()");
-                    System.out.println(e.getMessage());
-                }
-                        
+    public void pruebas()  {
+        
+        System.out.println("Ejecutadno pruebas)");
 
-	}
 
+    }
 }

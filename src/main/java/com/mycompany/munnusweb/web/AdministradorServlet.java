@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.domain.Administrador;
 import com.mycompany.munnusweb.service.AdministradorService;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,4 +61,43 @@ public class AdministradorServlet extends HttpServlet {
 		request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
 
 	}
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+          
+                System.err.println("entrando ");
+                String nif = req.getParameter("nif");
+                String nombres = req.getParameter("nombres");
+                String matriculaAbogado = req.getParameter("matriculaAbogado");
+                String apellidos= req.getParameter("apellidos");
+                String telefono = req.getParameter("telefono");
+                String email = req.getParameter("email");
+                String clave = req.getParameter("clave");
+                
+                System.err.println("mensaje " + nombres);
+                
+                 try { 
+                administradorService.registrarAdministrador(nif,matriculaAbogado,nombres,apellidos,telefono, email, clave);
+            } catch (ExcepcionNegocio ex) {
+               ex.printStackTrace();
+            }
+      
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      
+    
+        
+        String matriculaAbogado = req.getParameter("matriculaAbogado");
+        
+            try {
+                administradorService.administradorDeBaja(matriculaAbogado);
+            } catch (ExcepcionNegocio ex) {
+                Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+
 }
