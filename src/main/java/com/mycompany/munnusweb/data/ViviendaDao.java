@@ -7,6 +7,7 @@ package com.mycompany.munnusweb.data;
 import java.util.List;
 
 import com.mycompany.munnusweb.domain.Vivienda;
+import java.util.Optional;
 
 /**
  *
@@ -14,15 +15,17 @@ import com.mycompany.munnusweb.domain.Vivienda;
  */
 public interface ViviendaDao {
 
-	public List<Vivienda> findAllViviendas();
+    public List<Vivienda> findAllViviendas();
 
-	public Vivienda findViviendaByID(Vivienda vivienda);
+    public Vivienda findViviendaByID(int id_vivienda);
 
-	public Vivienda findViviendaByPropietario(Vivienda vivienda);
+    public Optional <Vivienda> findViviendaByPropietario(int id_propietario);
 
-	public void insertVivienda(Vivienda vivienda);
+    public Optional <Vivienda> findByDireccionVivienda(String direccionVvivienda);
 
-	public void updateVivienda(Vivienda vivienda);
+    public void insertVivienda(Vivienda vivienda);
 
-	public void deleteUsuario(Vivienda vivienda);
+    public void updateVivienda(Vivienda vivienda);
+
+    public void deleteVivienda(Vivienda vivienda);
 }

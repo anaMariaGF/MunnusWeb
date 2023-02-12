@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.domain.TipoGastos;
 import com.mycompany.munnusweb.service.TipoGastosService;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,5 +65,18 @@ public class TipoGastosServlet extends HttpServlet {
 		req.getRequestDispatcher("listadoTipoGastos.jsp"); // .forward(req, resp);
 
 	}
+    
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        int id_gasto =Integer.parseInt(req.getParameter("id_TipoGasto"));
+
+       
+            tipoGastosService.eliminarTipoGasto(id_gasto);
+      
+    }
+
 
 }

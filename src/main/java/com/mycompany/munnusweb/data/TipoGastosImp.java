@@ -38,10 +38,10 @@ public class TipoGastosImp implements TipoGastosDao {
 	}
 
 	@Override
-	public TipoGastos findByIdTipoGasto(TipoGastos tipoGastos) {
+	public TipoGastos findByIdTipoGasto(int id) {
 		// Especificamos la clase que queremos buscar y luego el campo por el
 		// que queremos buscar
-		return em.find(TipoGastos.class, tipoGastos.getIdTipoGasto());
+		return em.find(TipoGastos.class, id);
 	}
 
 	@Override
@@ -70,9 +70,9 @@ public class TipoGastosImp implements TipoGastosDao {
 	}
 
 	@Override
-	public void deleteTipoGasto(TipoGastos tipoGasto) {
+	public void deleteTipoGasto(int id) {
 		// 1. actualizamos el estado del objeto en la base de datos => se borra.
-		em.remove(em.merge(tipoGasto));
+		em.remove(em.merge(id));
 	}
 
 }

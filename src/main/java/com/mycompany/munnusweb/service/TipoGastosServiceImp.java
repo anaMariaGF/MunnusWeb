@@ -32,8 +32,8 @@ public class TipoGastosServiceImp implements TipoGastosService {
 	}
 
 	@Override
-	public TipoGastos encontrarTipoGastosPorID(TipoGastos gasto) {
-		return tipoGastosDao.findByIdTipoGasto(gasto);
+	public TipoGastos encontrarTipoGastosPorID(int id) {
+		return tipoGastosDao.findByIdTipoGasto(id);
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class TipoGastosServiceImp implements TipoGastosService {
 	}
 
 	@Override
-	public void eliminarTipoGasto(TipoGastos gasto) {
-		tipoGastosDao.deleteTipoGasto(gasto);
+	public void eliminarTipoGasto(int id) {
+		tipoGastosDao.deleteTipoGasto(id);
 	}
 
 }

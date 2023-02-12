@@ -12,14 +12,31 @@
         <title>Listado de Presupuestos</title>
     </head>
     <body>
-         <h1>Listado de Presupuestos</h1>
-        <ul>  
-            <c:forEach items="${presupuestos}" var="presupuesto">
-                <li>${presupuesto.presupuestoPK} ${presupuesto.nombreComunidad}${presupuesto.totalPresupuesto} 
-                    ${presupuesto.numProtales}</li>
-            </c:forEach>
-        </ul>
-      
+        <h1>Listado de Presupuestos</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID Presupuesto</th>
+                    <th scope="col">Nombre Comunidad</th>
+                    <th scope="col">Total Presupuesto</th>
+                    <th scope="col">Num. Portales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${presupuestos}" var="presupuesto">
+                    <tr>
+                        <th scope="row">${presupuesto.presupuestoPK}</th>
+                        <td>${presupuesto.nombreComunidad}</td>
+                        <td>${presupuesto.totalPresupuesto}</td>
+                        <td>${presupuesto.numProtales}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+
+
     </body>
 </html>
 

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import com.mycompany.munnusweb.data.FacturaDao;
 import com.mycompany.munnusweb.domain.Factura;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -18,35 +19,77 @@ import com.mycompany.munnusweb.domain.Factura;
  */
 @Stateless
 public class FacturaServiceImp implements FacturaService {
-	// Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
-	// usuarioDao
-	@Inject
-	private FacturaDao facturaDao;
+    // Gracias a que estamos en un entorno EE podemos usar CDI para inyectar
+    // usuarioDao
 
-	// Ahora nos apoyamos de la interfaz para completar los servicios
+    @Inject
+    private FacturaDao facturaDao;
 
-	@Override
-	public List<Factura> listarFacturas() {
-		return facturaDao.findAllFacturas();
-	}
+    // Ahora nos apoyamos de la interfaz para completar los servicios
+    @Override
+    public List<Factura> listarFacturas() {
+        return facturaDao.findAllFacturas();
+    }
 
-	@Override
-	public Factura encontrarFacturaPorID(Factura factura) {
-		return facturaDao.findFacturaByID(factura);
-	}
+    @Override
+    public Factura encontrarFacturaPorID(int id) {
+        return facturaDao.findFacturaByID(id);
+    }
+    /*
+    Este método en Java tiene como función registrar una nueva factura 
+    en el sistema. En el código, se usa una anotación @Override para indicar 
+    que este método está sobrescribiendo un método de una clase padre.
 
-	@Override
-	public void registrarUsuario(Factura factura) {
-		facturaDao.insertFactura(factura);
-	}
+    Luego, se obtienen todas las facturas existentes a través del método 
+    findAllFacturas() del objeto facturaDao, que se asume es un objeto de una
+    clase que implementa la lógica de acceso a datos para facturas.
 
-	@Override
-	public void modificarUsuario(Factura factura) {
-		facturaDao.updateFactura(factura);
-	}
+    A continuación, se recorre la lista de facturas y se comprueba si existe
+    una factura emitida en la misma fecha o en el mismo periodo que la factura
+    que se quiere registrar. En caso de que exista una factura emitida en la
+    misma fecha, se muestra un mensaje de error con los detalles de la factura 
+    existente. Si existe una factura en el mismo periodo, se muestra un mensaje 
+    de error con el estado, fecha de emisión y valor de la factura existente.
 
-	@Override
-	public void eliminarUsuario(Factura factura) {
-		facturaDao.deleteFactura(factura);
-	}
+    Finalmente, se crea un nuevo objeto de tipo Factura y se establecen los 
+    valores de sus atributos correspondientes a los parámetros del método. 
+    Luego, se inserta la nueva factura en el sistema a través del método 
+    insertFactura() de facturaDao. Por último, se muestra un mensaje indicando 
+    que la factura ha sido registrada con éxito.
+    */
+
+    @Override
+    public void registrarFactura(String estado, LocalDateTime fechaEmision, String periodo, Double valor) {
+
+        List<Factura> facturas = facturaDao.findAllFacturas();
+ 
+        
+        for (Factura factura : facturas) {
+            boolean existeUnaFacturaEmitidaLaMismaFecha = factura.getFechaEmision().equals(fechaEmision);
+            boolean existeLaFacturaDeEstePeriodo = factura.getPeriodo().equals(periodo);
+
+            if (existeUnaFacturaEmitidaLaMismaFecha) {
+                System.err.println("Esta factura fue registrada el: " 
+                        + factura.getFechaEmision() + " Su valor es de " 
+                        + factura.getValor() + " y su estado es: " 
+                        + factura.getEstadoF());
+
+            }
+            if (existeLaFacturaDeEstePeriodo) {
+                System.err.println("Esta factura ya esta registrada y su estado es:  " + estado 
+                        + " Su fecha de emision es: " + factura.getFechaEmision() 
+                        + " Y su valor es de " + factura.getValor());
+            }
+        }
+        //Nueva factura:
+
+        Factura factura = new Factura();
+        factura.setEstadoF(estado);
+        factura.setFechaEmision(fechaEmision);
+        factura.setPeriodo(periodo);
+        factura.setValor(valor);
+
+        facturaDao.insertFactura(factura);
+        System.out.println("Se ha registrado la factura con éxito ");
+    }
 }

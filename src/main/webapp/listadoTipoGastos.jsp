@@ -13,17 +13,26 @@
         <title>Listado de Tipo Gastos</title>
     </head>
     <body>
-         <h1>Listado de Tipo Gastos</h1>
-         
-         
-       
-        <ul>  
-            <c:forEach  var="gasto" items="${tipoGastos}">
-                <c:out value="${gasto}" />
-                <li>${gasto.idTipoGasto} ${gasto.descripcion}</li>
-            </c:forEach>
-        </ul>
-      
+        <h1>Listado de Tipo Gastos</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID Tipo Gasto</th>
+                    <th scope="col">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="gasto" items="${tipoGastos}">
+                    <tr>
+                        <th scope="row">${gasto.idTipoGasto}</th>
+                        <td>${gasto.descripcion}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+
     </body>
 </html>
 

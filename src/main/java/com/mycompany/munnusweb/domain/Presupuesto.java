@@ -5,19 +5,20 @@
 package com.mycompany.munnusweb.domain;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.Basic;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,93 +26,124 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "presupuesto")
-
-@NamedQuery(name = "Presupuesto.findAll", query = "SELECT p FROM Presupuesto p")
-@NamedQuery(name = "Presupuesto.findByIdPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.presupuestoPK.idPresupuesto = :idPresupuesto")
-@NamedQuery(name = "Presupuesto.findByNombreComunidad", query = "SELECT p FROM Presupuesto p WHERE p.nombreComunidad = :nombreComunidad")
-@NamedQuery(name = "Presupuesto.findByTotalPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.totalPresupuesto = :totalPresupuesto")
-@NamedQuery(name = "Presupuesto.findByNumProtales", query = "SELECT p FROM Presupuesto p WHERE p.numProtales = :numProtales")
-@NamedQuery(name = "Presupuesto.findByIdAdministrador", query = "SELECT p FROM Presupuesto p WHERE p.presupuestoPK.idAdministrador = :idAdministrador")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Presupuesto.findAll", query = "SELECT p FROM Presupuesto p"),
+    @NamedQuery(name = "Presupuesto.findByNombreComunidad", query = "SELECT p FROM Presupuesto p WHERE p.nombreComunidad = :nombreComunidad"),
+    @NamedQuery(name = "Presupuesto.findByNumProtales", query = "SELECT p FROM Presupuesto p WHERE p.numProtales = :numProtales"),
+    @NamedQuery(name = "Presupuesto.findByTotalPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.totalPresupuesto = :totalPresupuesto"),
+    @NamedQuery(name = "Presupuesto.findByIdAdministrador", query = "SELECT p FROM Presupuesto p WHERE p.presupuestoPK.idAdministrador = :idAdministrador"),
+    @NamedQuery(name = "Presupuesto.findByIdPresupuesto", query = "SELECT p FROM Presupuesto p WHERE p.presupuestoPK.idPresupuesto = :idPresupuesto")})
 public class Presupuesto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected PresupuestoPK presupuestoPK;
+    @Size(max = 255)
+    @Column(name = "nombreComunidad", nullable = false)
+    private String nombreComunidad;
+   
+    @Column(name = "num_Protales")
+    private Integer numProtales;
+    
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+   
+    @Column(name = "totalPresupuesto",  nullable = false)
+    private Double totalPresupuesto;
+    
+    @Column(name = "totalGastos", insertable = false, updatable = false)
+    private Double totalGastos;
+   
+    @JoinColumn(name = "id_Administrador", referencedColumnName = "id_Administrador", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Administrador administrador;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuesto")
+    private Collection<PresupuestoHasTipoGastos> presupuestoHasTipoGastosCollection;
 
-	@EmbeddedId
-	private PresupuestoPK presupuestoPK;
+    public Presupuesto() {
+    }
 
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 70)
-	@Column(name = "nombreComunidad")
-	private String nombreComunidad;
+    public Presupuesto(PresupuestoPK presupuestoPK) {
+        this.presupuestoPK = presupuestoPK;
+    }
 
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "totalPresupuesto")
+    public Presupuesto(int idAdministrador, int idPresupuesto) {
+        this.presupuestoPK = new PresupuestoPK(idAdministrador, idPresupuesto);
+    }
 
-	private double totalPresupuesto;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "num_Protales")
-	private int numProtales;
+    public PresupuestoPK getPresupuestoPK() {
+        return presupuestoPK;
+    }
 
-	@JoinColumn(name = "id_Administrador", referencedColumnName = "id_Administrador", insertable = false, updatable = false)
-	@ManyToOne(optional = false)
-	private Administrador administrador;
+    public void setPresupuestoPK(PresupuestoPK presupuestoPK) {
+        this.presupuestoPK = presupuestoPK;
+    }
 
-	@OneToMany(mappedBy = "presupuesto")
-	private List<PresupuestoTipoGastos> presupuestoTipoGastos;
+    public String getNombreComunidad() {
+        return nombreComunidad;
+    }
 
-	public PresupuestoPK getPresupuestoPK() {
-		return presupuestoPK;
-	}
+    public void setNombreComunidad(String nombreComunidad) {
+        this.nombreComunidad = nombreComunidad;
+    }
 
-	public void setPresupuestoPK(PresupuestoPK presupuestoPK) {
-		this.presupuestoPK = presupuestoPK;
-	}
+    public Integer getNumProtales() {
+        return numProtales;
+    }
 
-	public String getNombreComunidad() {
-		return nombreComunidad;
-	}
+    public void setNumProtales(Integer numProtales) {
+        this.numProtales = numProtales;
+    }
 
-	public void setNombreComunidad(String nombreComunidad) {
-		this.nombreComunidad = nombreComunidad;
-	}
+    public Double getTotalPresupuesto() {
+        return totalPresupuesto;
+    }
 
-	public double getTotalPresupuesto() {
-		return totalPresupuesto;
-	}
+    public void setTotalPresupuesto(Double totalPresupuesto) {
+        this.totalPresupuesto = totalPresupuesto;
+    }
 
-	public void setTotalPresupuesto(double totalPresupuesto) {
-		this.totalPresupuesto = totalPresupuesto;
-	}
+    public Administrador getAdministrador() {
+        return administrador;
+    }
 
-	public int getNumProtales() {
-		return numProtales;
-	}
+    public void setAdministrador(Administrador administrador) {
+        this.administrador = administrador;
+    }
 
-	public void setNumProtales(int numProtales) {
-		this.numProtales = numProtales;
-	}
+    @XmlTransient
+    public Collection<PresupuestoHasTipoGastos> getPresupuestoHasTipoGastosCollection() {
+        return presupuestoHasTipoGastosCollection;
+    }
 
-	public List<PresupuestoTipoGastos> getPresupuestoTipoGastos() {
-		return presupuestoTipoGastos;
-	}
+    public void setPresupuestoHasTipoGastosCollection(Collection<PresupuestoHasTipoGastos> presupuestoHasTipoGastosCollection) {
+        this.presupuestoHasTipoGastosCollection = presupuestoHasTipoGastosCollection;
+    }
 
-	public void setPresupuestoTipoGastos(List<PresupuestoTipoGastos> presupuestoTipoGastos) {
-		this.presupuestoTipoGastos = presupuestoTipoGastos;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (presupuestoPK != null ? presupuestoPK.hashCode() : 0);
+        return hash;
+    }
 
-	public Administrador getAdministrador() {
-		return administrador;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Presupuesto)) {
+            return false;
+        }
+        Presupuesto other = (Presupuesto) object;
+        if ((this.presupuestoPK == null && other.presupuestoPK != null) || (this.presupuestoPK != null && !this.presupuestoPK.equals(other.presupuestoPK))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+    @Override
+    public String toString() {
+        return "com.mycompany.munnusweb.domain.Presupuesto[ presupuestoPK=" + presupuestoPK + " ]";
+    }
+    
 }

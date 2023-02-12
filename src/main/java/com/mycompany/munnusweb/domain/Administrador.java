@@ -5,9 +5,7 @@
 package com.mycompany.munnusweb.domain;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
-
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,13 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,211 +27,167 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "administrador")
-
-@NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a")
-@NamedQuery(name = "Administrador.findByIdAdministrador", query = "SELECT a FROM Administrador a WHERE a.idAdministrador = :idAdministrador")
-@NamedQuery(name = "Administrador.findByNif", query = "SELECT a FROM Administrador a WHERE a.nif = :nif")
-@NamedQuery(name = "Administrador.findByMatriculaAbogado", query = "SELECT a FROM Administrador a WHERE a.matriculaAbogado = :matriculaAbogado")
-@NamedQuery(name = "Administrador.findByNombres", query = "SELECT a FROM Administrador a WHERE a.nombres = :nombres")
-@NamedQuery(name = "Administrador.findByApellidos", query = "SELECT a FROM Administrador a WHERE a.apellidos = :apellidos")
-@NamedQuery(name = "Administrador.findByTelefono", query = "SELECT a FROM Administrador a WHERE a.telefono = :telefono")
-@NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email")
-@NamedQuery(name = "Administrador.findByClave", query = "SELECT a FROM Administrador a WHERE a.clave = :clave")
-@NamedQuery(name = "Administrador.findByClaveMatriculaAbogado", query = "SELECT a FROM Administrador a WHERE a.clave = :clave AND a.matriculaAbogado = :matriculaAbogado")
-
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Administrador.findAll", query = "SELECT a FROM Administrador a"),
+    @NamedQuery(name = "Administrador.findByIdAdministrador", query = "SELECT a FROM Administrador a WHERE a.idAdministrador = :idAdministrador"),
+    @NamedQuery(name = "Administrador.findByApellidos", query = "SELECT a FROM Administrador a WHERE a.apellidos = :apellidos"),
+    @NamedQuery(name = "Administrador.findByClave", query = "SELECT a FROM Administrador a WHERE a.clave = :clave"),
+    @NamedQuery(name = "Administrador.findByEmail", query = "SELECT a FROM Administrador a WHERE a.email = :email"),
+    @NamedQuery(name = "Administrador.findByEstadoCuentaA", query = "SELECT a FROM Administrador a WHERE a.estadoCuentaA = :estadoCuentaA"),
+    @NamedQuery(name = "Administrador.findByMatriculaAbogado", query = "SELECT a FROM Administrador a WHERE a.matriculaAbogado = :matriculaAbogado"),
+    @NamedQuery(name = "Administrador.findByNif", query = "SELECT a FROM Administrador a WHERE a.nif = :nif"),
+    @NamedQuery(name = "Administrador.findByNombres", query = "SELECT a FROM Administrador a WHERE a.nombres = :nombres"),
+    @NamedQuery(name = "Administrador.findByTelefono", query = "SELECT a FROM Administrador a WHERE a.telefono = :telefono")})
 public class Administrador implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-        
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "id_Administrador", unique = true)
-	private Integer idAdministrador;
-
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 50)
-	@Column(name = "NIF")
-	private String nif;
-
-	@Basic(optional = false)
-	@NotNull()
-	@Size(min = 1, max = 45)
-	@Column(name = "matriculaAbogado", unique = true)
-	private String matriculaAbogado;
-
-	
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 45)
-	@Column(name = "nombres")
-	private String nombres;
-
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 45)
-	@Column(name = "apellidos")
-	private String apellidos;
-
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 45)
-	@Column(name = "telefono")
-	private String telefono;
-
-	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-	// message="Invalid email")//if the field contains email address consider using
-	// this annotation to enforce field validation
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 60)
-	@Column(name = "email")
-	private String email;
-
-	@Basic(optional = false)
-	@NotNull
-	@Size(min = 1, max = 200)
-	@Column(name = "clave")
-	private String clave;
-
-	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-	// message="Invalid email")//if the field contains email address consider using
-	// this annotation to enforce field validation
-
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "estadoCuentaA", length = 1)
-	private String estadoCuentaA;
-
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_Administrador")
+    private Integer idAdministrador;
+    @Size(max = 255)
+    @Column(name = "apellidos")
+    private String apellidos;
+    @Size(max = 255)
+    @Column(name = "clave")
+    private String clave;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 255)
+    @Column(name = "email")
+    private String email;
+    @Size(max = 1)
+    @Column(name = "estadoCuentaA")
+    private String estadoCuentaA;
+    @Size(max = 255)
+    @Column(name = "matriculaAbogado")
+    private String matriculaAbogado;
+    @Size(max = 255)
+    @Column(name = "NIF")
+    private String nif;
+    @Size(max = 255)
+    @Column(name = "nombres")
+    private String nombres;
+    @Size(max = 255)
+    @Column(name = "telefono")
+    private String telefono;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrador")
+    private Collection<Presupuesto> presupuestoCollection;
    
-        
-        
 
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "administrador")
-	private List<Presupuesto> presupuestoCollection;
-        
-        
-        @OneToMany(mappedBy = "administradoridAdministrador")
-	private List<Usuario> usuarioCollection;
+    public Administrador() {
+    }
 
+    public Administrador(Integer idAdministrador) {
+        this.idAdministrador = idAdministrador;
+    }
 
-	public Integer getIdAdministrador() {
-		return idAdministrador;
-	}
+    public Integer getIdAdministrador() {
+        return idAdministrador;
+    }
 
-	public void setIdAdministrador(Integer idAdministrador) {
-		this.idAdministrador = idAdministrador;
-	}
+    public void setIdAdministrador(Integer idAdministrador) {
+        this.idAdministrador = idAdministrador;
+    }
 
-	public String getNif() {
-		return nif;
-	}
+    public String getApellidos() {
+        return apellidos;
+    }
 
-	public void setNif(String nif) {
-		this.nif = nif;
-	}
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-	public String getMatriculaAbogado() {
-		return matriculaAbogado;
-	}
+    public String getClave() {
+        return clave;
+    }
 
-	public void setMatriculaAbogado(String matriculaAbogado) {
-		this.matriculaAbogado = matriculaAbogado;
-	}
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
-	public List<Usuario> getUsuarioCollection() {
-		return usuarioCollection;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setUsuarioCollection(List<Usuario> usuarioCollection) {
-		this.usuarioCollection = usuarioCollection;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getNombres() {
-		return nombres;
-	}
+    public String getEstadoCuentaA() {
+        return estadoCuentaA;
+    }
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
+    public void setEstadoCuentaA(String estadoCuentaA) {
+        this.estadoCuentaA = estadoCuentaA;
+    }
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    public String getMatriculaAbogado() {
+        return matriculaAbogado;
+    }
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    public void setMatriculaAbogado(String matriculaAbogado) {
+        this.matriculaAbogado = matriculaAbogado;
+    }
 
-	public String getTelefono() {
-		return telefono;
-	}
+    public String getNif() {
+        return nif;
+    }
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getNombres() {
+        return nombres;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public String getTelefono() {
+        return telefono;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
-	public String getEstadoCuentaA() {
-		return estadoCuentaA;
-	}
+    @XmlTransient
+    public Collection<Presupuesto> getPresupuestoCollection() {
+        return presupuestoCollection;
+    }
 
-	public void setEstadoCuentaA(String estadoCuentaA) {
-		this.estadoCuentaA = estadoCuentaA;
-	}
+    public void setPresupuestoCollection(Collection<Presupuesto> presupuestoCollection) {
+        this.presupuestoCollection = presupuestoCollection;
+    }
 
-	
-	public List<Presupuesto> getPresupuestoCollection() {
-		return presupuestoCollection;
-	}
+  
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idAdministrador != null ? idAdministrador.hashCode() : 0);
+        return hash;
+    }
 
-	public void setPresupuestoCollection(List<Presupuesto> presupuestoCollection) {
-		this.presupuestoCollection = presupuestoCollection;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Administrador)) {
+            return false;
+        }
+        Administrador other = (Administrador) object;
+        if ((this.idAdministrador == null && other.idAdministrador != null) || (this.idAdministrador != null && !this.idAdministrador.equals(other.idAdministrador))) {
+            return false;
+        }
+        return true;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(apellidos, clave, email, estadoCuentaA, idAdministrador, matriculaAbogado,
-				nif, nombres, presupuestoCollection, telefono, usuarioCollection);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof Administrador))
-			return false;
-		Administrador other = (Administrador) obj;
-		return Objects.equals(apellidos, other.apellidos) && Objects.equals(clave, other.clave)
-				&& Objects.equals(email, other.email) && Objects.equals(estadoCuentaA, other.estadoCuentaA)
-				
-				&& Objects.equals(idAdministrador, other.idAdministrador)
-				&& Objects.equals(matriculaAbogado, other.matriculaAbogado) && Objects.equals(nif, other.nif)
-				&& Objects.equals(nombres, other.nombres)
-				&& Objects.equals(presupuestoCollection, other.presupuestoCollection)
-				&& Objects.equals(telefono, other.telefono)
-				&& Objects.equals(usuarioCollection, other.usuarioCollection);
-	}
-
+    @Override
+    public String toString() {
+        return "com.mycompany.munnusweb.domain.Administrador[ idAdministrador=" + idAdministrador + " ]";
+    }
+    
 }

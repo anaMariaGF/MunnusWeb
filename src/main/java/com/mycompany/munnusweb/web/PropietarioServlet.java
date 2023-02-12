@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.domain.Propietario;
 import com.mycompany.munnusweb.service.PropietarioService;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,4 +49,40 @@ public class PropietarioServlet extends HttpServlet {
 		// Redirigimos al JSP
 		request.getRequestDispatcher("/listadoPropietarios.jsp").forward(request, respose);
 	}
+        
+        @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.err.println("entrando");
+        String apellidos = req.getParameter("apellidos");
+        String clave = req.getParameter("clave");
+        String email = req.getParameter("email");
+        String nombres = req.getParameter("nombres");
+        String numeroCuentaBancaria = req.getParameter("numeroCuentaBancaria");
+        String telefono = req.getParameter("telefono");
+        
+    
+        System.err.println("mensaje " + nombres);
+
+        try {
+            propietarioService.registrarPropietario(apellidos,clave,email,nombres,numeroCuentaBancaria,telefono);
+        } catch (ExcepcionNegocio ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
+     @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String email = req.getParameter("email");
+
+        try {
+            propietarioService.propietarioDeBaja(email);
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+      
 }

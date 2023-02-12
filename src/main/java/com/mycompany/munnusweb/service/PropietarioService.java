@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.mycompany.munnusweb.domain.Propietario;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  *
@@ -19,14 +20,19 @@ public interface PropietarioService {
 
 	public List<Propietario> listarPropietarios();
 
-	public Propietario encontrarPropietariPorID(Propietario propietario);
+	public Propietario encontrarPropietarioPorID(int id) throws ExcepcionNegocio;
 
-	public Propietario econtrarUsuarioPorEmail(Propietario propietario);
+	public Propietario econtrarPropietarioPorEmail(String Email) throws ExcepcionNegocio;
 
-	public void registrarUsuario(Propietario propietario);
+	public void registrarPropietario(String apellidos, String clave, String email, String nombres, String numeroCuentaBancaria, String telefono) throws ExcepcionNegocio;
+        
+        public boolean inicarSesionPropietario(String email, String clave) throws ExcepcionNegocio;
+        
+        public void cambioClavePropietario(String email, String claveVieja, String claveNueva) throws ExcepcionNegocio;
 
-	public void modificarUsuario(Propietario propietario);
+	public void modificarPropietario(Propietario propietario);
 
-	public void eliminarUsuario(Propietario propietario);
-
+	public void eliminarPropietario(Propietario propietario);
+        
+        public void propietarioDeBaja(String email) throws ExcepcionNegocio;
 }

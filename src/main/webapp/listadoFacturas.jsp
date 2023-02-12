@@ -12,13 +12,30 @@
         <title>Listado de Facturas</title>
     </head>
     <body>
-         <h1>Listado de Facturas</h1>
-        <ul>  
-            <c:forEach items="${facturas}" var="factura">
-                <li>${factura.idFactura} ${factura.fechaEmision}${factura.periodo} ${factura.estadoF} ${factura.valor}</li>
-            </c:forEach>
-        </ul>
-      
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha de Emisión</th>
+                    <th>Período</th>
+                    <th>Estado</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${facturas}" var="factura">
+                    <tr>
+                        <td>${factura.idFactura}</td>
+                        <td>${factura.fechaEmision}</td>
+                        <td>${factura.periodo}</td>
+                        <td>${factura.estadoF}</td>
+                        <td>${factura.valor}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
     </body>
 </html>
 

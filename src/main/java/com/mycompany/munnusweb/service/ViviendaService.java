@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.mycompany.munnusweb.domain.Vivienda;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  *
@@ -18,13 +19,13 @@ import com.mycompany.munnusweb.domain.Vivienda;
 public interface ViviendaService {
 	public List<Vivienda> listarViviendas();
 
-	public Vivienda encontrarViviendaPorID(Vivienda vivienda);
+	public Vivienda encontrarViviendaPorID(int id_vivienda);
 
-	public Vivienda econtrarViviendaPorPropietario(Vivienda vivienda);
+	public Vivienda econtrarViviendaPorPropietario(int id_Propietario)throws ExcepcionNegocio;
 
-	public void registrarVivienda(Vivienda vivienda);
+	public void registrarVivienda(String ascensor, double coeficienteVivienda, String direccionVivienda, String parking, String portal, double totalPagar) throws ExcepcionNegocio ;
 
-	public void modificarVivienda(Vivienda vivienda);
+	public void modificarVivienda(String direccionVivienda,String ascensor,String parking, int idPropietario)throws ExcepcionNegocio;
 
-	public void eliminarVivienda(Vivienda vivienda);
+	public void eliminarVivienda(String direccionVivienda)throws ExcepcionNegocio;
 }

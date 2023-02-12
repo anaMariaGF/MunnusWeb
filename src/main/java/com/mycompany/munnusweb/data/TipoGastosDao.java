@@ -15,7 +15,7 @@ import com.mycompany.munnusweb.domain.TipoGastos;
 public interface TipoGastosDao {
 	public List<TipoGastos> findAllTipoGasto();
 
-	public TipoGastos findByIdTipoGasto(TipoGastos tipoGastos);
+	public TipoGastos findByIdTipoGasto(int id);
 
 	public TipoGastos findByDescripcion(TipoGastos tipoGasto);
 
@@ -23,6 +23,6 @@ public interface TipoGastosDao {
 
 	public void updateTipoGasto(TipoGastos tipoGasto);
 
-	public void deleteTipoGasto(TipoGastos tipoGasto);
+	public void deleteTipoGasto(int id);
 
 }

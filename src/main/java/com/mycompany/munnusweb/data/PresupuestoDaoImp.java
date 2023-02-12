@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.domain.PresupuestoPK;
 import com.mycompany.munnusweb.util.Constantes;
+import java.util.Optional;
+import javax.persistence.Query;
 
 /**
  *
@@ -39,11 +41,21 @@ public class PresupuestoDaoImp implements PresupuestoDao {
 	}
 
 	@Override
-	public Presupuesto findPresupuestoByID(PresupuestoPK presupuesto) {
+	public Optional <Presupuesto>  findPresupuestoByID(PresupuestoPK presupuesto) {
 		// Especificamos la clase que queremos buscar y luego el campo por el
 		// que queremos buscar
-		return em.find(Presupuesto.class, presupuesto.getIdPresupuesto());
+		return Optional.ofNullable(em.find(Presupuesto.class, presupuesto.getIdPresupuesto()));
 	}
+        
+ 
+    @Override
+        public Optional <Presupuesto> findPresupuestoByNombreComunidad(String nombreComunidad){
+            // En este caso no vamos a usar un NamedQuery, que podríamos haber
+		Query query = em.createQuery("Presupuesto.findByNombreComunidad");
+		query.setParameter("Comundiad: ", nombreComunidad);
+		return Optional.ofNullable((Presupuesto) query.getResultList());
+	}
+        
 
 	@Override
 	public void insertPresupuesto(Presupuesto presupuesto) {
@@ -59,6 +71,6 @@ public class PresupuestoDaoImp implements PresupuestoDao {
 	@Override
 	public void deletePresupuesto(Presupuesto presupuesto) {
 		// 1. actualizamos el estado del objeto en la base de datos => se borra.
-		em.remove(em.merge(presupuesto));
+		em.remove(presupuesto);
 	}
 }

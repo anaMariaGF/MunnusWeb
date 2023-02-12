@@ -12,5 +12,11 @@
         <h1>Hello World!</h1>
         
         <a href="/administradores"> /administradores </a>
+        <br>  
+        <br>
+        <a href="/facturas"> /facturas </a>
+        <br>  
+        <br>
+        <a href="/propietarios"> /propietarios </a>
     </body>
 </html>

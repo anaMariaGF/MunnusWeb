@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.Local; //java been de tipo local 
 
 import com.mycompany.munnusweb.domain.Factura;
+import java.time.LocalDateTime;
+
 
 /**
  *
@@ -18,14 +20,12 @@ import com.mycompany.munnusweb.domain.Factura;
 public interface FacturaService {
 	public List<Factura> listarFacturas();
 
-	public Factura encontrarFacturaPorID(Factura factura);
+	public Factura encontrarFacturaPorID(int id);
 
-	public void registrarUsuario(Factura factura);
+	public void registrarFactura(String estadoF, LocalDateTime fechaEmision, String periodo, Double valor);
 
-	public void modificarUsuario(Factura factura);
-
-	public void eliminarUsuario(Factura factura);
-
+	//public void modificarFactura(Factura factura);
+        //eliminar factura
 	// generar factura
 	// calcular factura
 }

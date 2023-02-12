@@ -13,6 +13,7 @@ import javax.persistence.Query;
 
 import com.mycompany.munnusweb.domain.Vivienda;
 import com.mycompany.munnusweb.util.Constantes;
+import java.util.Optional;
 
 /**
  *
@@ -39,20 +40,26 @@ public class ViviendaDaoImp implements ViviendaDao {
 	}
 
 	@Override
-	public Vivienda findViviendaByID(Vivienda vivienda) {
+	public Vivienda findViviendaByID(int id_vivienda) {
 		// Especificamos la clase que queremos buscar y luego el campo por el
 		// que queremos buscar
-		return em.find(Vivienda.class, vivienda.getIdVivienda());
+		return em.find(Vivienda.class, id_vivienda);
 	}
 
 	@Override
-	public Vivienda findViviendaByPropietario(Vivienda vivienda) {
+	public Optional<Vivienda> findViviendaByPropietario(int id_propietario) {
 		// En este caso no vamos a usar un NamedQuery, que podríamos haber
-		// agregado en la Entidad de Usuario sino que vamos a incluirlo directamente.
 		Query query = em.createQuery("Vivienda.findByPropietario");
-		query.setParameter("propietarios", vivienda.getPropietarioCollection());
-		return (Vivienda) query.getResultList();
+		query.setParameter("propietario", id_propietario);
+		return Optional.ofNullable((Vivienda) query.getResultList());
 	}
+        
+        @Override
+        public Optional<Vivienda> findByDireccionVivienda(String direccionVvivienda) {
+            Query query = em.createQuery("Vivienda.findByDireccionVivienda");
+            query.setParameter("vivienda", direccionVvivienda);
+            return Optional.ofNullable((Vivienda) query.getResultList());
+        }
 
 	@Override
 	public void insertVivienda(Vivienda vivienda) {
@@ -66,7 +73,7 @@ public class ViviendaDaoImp implements ViviendaDao {
 	}
 
 	@Override
-	public void deleteUsuario(Vivienda vivienda) {
+	public void deleteVivienda(Vivienda vivienda) {
 		// 1. actualizamos el estado del objeto en la base de datos => se borra.
 		em.remove(em.merge(vivienda));
 	}

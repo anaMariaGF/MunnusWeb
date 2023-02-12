@@ -19,45 +19,44 @@ import com.mycompany.munnusweb.util.Constantes;
  */
 @Stateless
 public class FacturaDaoImp implements FacturaDao {
-	// El EJB se encarga de forma automática de hacer las transacciones.
+    // El EJB se encarga de forma automática de hacer las transacciones.
 
-	// Ahora inyectamos la unidad de persistencia a través del API de JPA
-	// Simplemente tenemos que usar la anotación e indicar el nombre de nuestra
-	// unidad de persistencia
-	@PersistenceContext(unitName = Constantes.PU)
-	EntityManager em;
+    // Ahora inyectamos la unidad de persistencia a través del API de JPA
+    // Simplemente tenemos que usar la anotación e indicar el nombre de nuestra
+    // unidad de persistencia
+    @PersistenceContext(unitName = Constantes.PU)
+    EntityManager em;
 
-	// Con este objeto de em ya podemos interactuar con nuestra BD
+    // Con este objeto de em ya podemos interactuar con nuestra BD
+    @Override
+    public List<Factura> findAllFacturas() {
+        // Creamos un NamedQuery, y el listado lo leemos con getResultList
+        // Por lo que estamos escribiendo menos código
+        return em.createNamedQuery("Factura.findAll").getResultList();
+    }
 
-	@Override
-	public List<Factura> findAllFacturas() {
-		// Creamos un NamedQuery, y el listado lo leemos con getResultList
-		// Por lo que estamos escribiendo menos código
-		return em.createNamedQuery("Factura.findAll").getResultList();
-	}
+    @Override
+    public Factura findFacturaByID(int id) {
+        // Especificamos la clase que queremos buscar y luego el campo por el
+        // que queremos buscar
+        return em.find(Factura.class, id);
+    }
 
-	@Override
-	public Factura findFacturaByID(Factura factura) {
-		// Especificamos la clase que queremos buscar y luego el campo por el
-		// que queremos buscar
-		return em.find(Factura.class, factura.getIdFactura());
-	}
+    @Override
+    public void insertFactura(Factura factura) {
+        em.persist(factura);
+    }
 
-	@Override
-	public void insertFactura(Factura factura) {
-		em.persist(factura);
-	}
+    @Override
+    public void updateFactura(Factura factura) {
+        // Sincroniza cualquier modificamos que hayamos hecho de la persona en la BD
+        em.merge(factura);
+    }
 
-	@Override
-	public void updateFactura(Factura factura) {
-		// Sincroniza cualquier modificamos que hayamos hecho de la persona en la BD
-		em.merge(factura);
-	}
-
-	@Override
-	public void deleteFactura(Factura factura) {
-		// 1. actualizamos el estado del objeto en la base de datos => se borra.
-		em.remove(em.merge(factura));
-	}
+    @Override
+    public void deleteFactura(Factura factura) {
+        // 1. actualizamos el estado del objeto en la base de datos => se borra.
+        em.remove(em.merge(factura));
+    }
 
 }

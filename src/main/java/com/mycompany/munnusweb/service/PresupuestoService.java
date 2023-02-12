@@ -10,6 +10,7 @@ import javax.ejb.Local;
 
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.domain.PresupuestoPK;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  *
@@ -17,14 +18,15 @@ import com.mycompany.munnusweb.domain.PresupuestoPK;
  */
 @Local
 public interface PresupuestoService {
-	public List<Presupuesto> listarPresupuestos();
 
-	public Presupuesto encontrarPresupuestoPorID(PresupuestoPK presupuesto);
+    public List<Presupuesto> listarPresupuestos();
 
-	public void registrarPresupuesto(Presupuesto presupuesto);
+    public Presupuesto encontrarPresupuestoPorID(int idAdmin, int idPresupuesto) throws ExcepcionNegocio;
 
-	public void modificarPresupuesto(Presupuesto presupuesto);
+    public void registrarPresupuesto(String nombreComunidad, int numProtales, Double totalPresupuesto) throws ExcepcionNegocio;
 
-	public void eliminarPresupuesto(Presupuesto presupuesto);
+    public void modificarPresupuesto(int idAdmin, int idPresupuesto) throws ExcepcionNegocio;
+
+    public void eliminarPresupuesto(int idAdmin, int idPresupuesto) throws ExcepcionNegocio;
 
 }

@@ -17,7 +17,7 @@ public interface FacturaDao {
 
 	public List<Factura> findAllFacturas();
 
-	public Factura findFacturaByID(Factura factura);
+	public Factura findFacturaByID(int id);
 
 	public void insertFactura(Factura factura);
 

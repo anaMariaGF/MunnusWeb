@@ -22,9 +22,9 @@ public interface AdministradorService {
 
 	public List<Administrador> listarAdministradores();
 
-	public Optional<Administrador> encontrarAdministradorPorID(int id);
+	public Administrador encontrarAdministradorPorID(int id)  throws ExcepcionNegocio;
 
-	public Optional<Administrador> encontrarAdministradorPorMatriculaAbogado(String matricula);
+	public Administrador encontrarAdministradorPorMatriculaAbogado(String matricula)  throws ExcepcionNegocio;
 
 	public void registrarAdministrador(String nif, String matriculaAbogado, String nombres, String apellidos,
 			String telefono, String email, String clave) throws ExcepcionNegocio;
