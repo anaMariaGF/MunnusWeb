@@ -5,18 +5,22 @@
 package com.mycompany.munnusweb.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Embedded;
 
 /**
+ * w
  *
  * @author ana
  */
 @Embeddable
-public class PresupuestoHasTipoGastosPK implements Serializable {
+public class PresupuestoTipoGastosPK implements Serializable {
 
+      
     @Basic(optional = false)
 
     @Column(name = "presupuesto_id_administrador",  nullable = false)
@@ -30,7 +34,7 @@ public class PresupuestoHasTipoGastosPK implements Serializable {
     private int tipoGastosIdTipoGastos;
    
 
-    public PresupuestoHasTipoGastosPK() {
+    public PresupuestoTipoGastosPK() {
     }
 
     public int getPresupuestoIdAdministrador() {
@@ -77,7 +81,7 @@ public class PresupuestoHasTipoGastosPK implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PresupuestoHasTipoGastosPK other = (PresupuestoHasTipoGastosPK) obj;
+        final PresupuestoTipoGastosPK other = (PresupuestoTipoGastosPK) obj;
         if (this.presupuestoIdAdministrador != other.presupuestoIdAdministrador) {
             return false;
         }

@@ -1,14 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.web.munnus</groupId>
 	<artifactId>MunnusWeb</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>MunnusWeb</name>
-
 	<!-- Esta sección contiene propiedades que se refieren a la configuración 
 		de compilación. Se especifica la versión de Java (1.8) que se usará como 
 		fuente y objetivo, así como el directorio "endorsed" y el encoding del proyecto. 
@@ -16,59 +14,44 @@
 		y especifica la versión de Jakarta EE (8.0). -->
 	<properties>
 		<java.version>1.8</java.version>
-
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<jakartaee>8.0</jakartaee>
+		<glassfish.folder>C:\Users\DAHM1\glassfish5\glassfish</glassfish.folder>
+		
+		
 	</properties>
-
-
-
 	<!--Este código corresponde a una dependencia de Maven usada para proyectos 
 		JavaEE. La dependencia específica es la API JavaEE y se utiliza con la versión 
 		de JakartaEE especificada como propiedad. El alcance de la dependencia es 
 		"provided", lo que significa que no se incluirá en los archivos de compilación 
 		de salida. -->
 	<dependencies>
-
-
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${jakartaee}</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version> <!-- just used the latest version, make sure you use the one you need -->
 			<scope>provided</scope>
 		</dependency>
-
-
-
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.32</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 			<version>2.7.11</version>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<finalName>MunnusWeb</finalName>
-
-
 		<plugins>
 			<!--Este código corresponde al plugin de maven-compiler-plugin, el cual 
 				se utiliza para compilar el código fuente a código binario. Esta configuración 
@@ -83,8 +66,6 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-
-
 			<!--Este código es un plugin de Maven para la creación de archivos WAR. 
 				Establece la configuración para que no se produzca un error si no existe 
 				un archivo web.xml. -->
@@ -96,7 +77,34 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-
+			
+			<!-- se puede mirar el plugin Cargo Maven Plugin
+			 https://stackoverflow.com/questions/42273099/how-to-deploy-a-maven-web-application-to-a-local-installed-glassfish-->
+			
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>${glassfish.folder}</glassfishDirectory>
+					<user>admin</user>
+					<passwordFile>${glassfish.folder}/domains/domain1/config/domain-passwords</passwordFile>
+					<domain>
+						<name>domain1</name>
+						<httpPort>8080</httpPort>
+						<adminPort>4848</adminPort>
+					</domain>
+					<components>
+						<component>
+							<name>${project.artifactId}</name>
+							<artifact>target/${project.artifactId}-${project.version}.war</artifact>
+						</component>
+					</components>
+					<debug>true</debug>
+					<terse>false</terse>
+					<echo>true</echo>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
