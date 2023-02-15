@@ -67,19 +67,18 @@ public class ViviendaServiceImp implements ViviendaService {
     }
 
     @Override
-    public void modificarVivienda(String direccionVivienda, String ascensor,String parking, int idPropietario)throws ExcepcionNegocio{
+    public void modificarVivienda(String direccionVivienda, String ascensor, String parking, int idPropietario) throws ExcepcionNegocio {
         Vivienda vivienda = viviendaDao.findByDireccionVivienda(direccionVivienda).orElseThrow(() -> new ExcepcionNegocio("No se puede modificar la vivienda, ya que no se encuentra en la dirección especificada" + direccionVivienda));
         viviendaDao.updateVivienda(vivienda);
     }
 
     @Override
-    public void eliminarVivienda(String direccionVivienda)throws ExcepcionNegocio{
+    public void eliminarVivienda(String direccionVivienda) throws ExcepcionNegocio {
         Vivienda vivienda = viviendaDao.findByDireccionVivienda(direccionVivienda)
                 .orElseThrow(
                         () -> new ExcepcionNegocio("No se puede dar de baja la vivienda, ya que no se encuentra en la dirección especificada"));
 
         viviendaDao.deleteVivienda(vivienda);
     }
- 
-}
 
+}

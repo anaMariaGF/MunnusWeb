@@ -166,6 +166,7 @@ public class PropietarioServiceImp implements PropietarioService {
 
                 // 3. si se cumple entonces actualizar clave
                 personaEncontrada.setClave(Encriptador.encriptadoMD5(claveNueva));
+
                 propietarioDao.updatePropietario(personaEncontrada);
             }
         } catch (NoSuchAlgorithmException ex) {

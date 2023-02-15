@@ -84,5 +84,22 @@ public class PropietarioServlet extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       
+        String email = "s";
+        String claveVieja = "";
+        String claveNueva = ";";
+        
+            try {
+                propietarioService.cambioClavePropietario(email, claveVieja, claveNueva);
+            } catch (ExcepcionNegocio ex) {
+                Logger.getLogger(PropietarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+    }
+    
       
 }

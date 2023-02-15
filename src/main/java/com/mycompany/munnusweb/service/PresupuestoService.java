@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.mycompany.munnusweb.domain.Presupuesto;
-import com.mycompany.munnusweb.domain.PresupuestoPK;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**

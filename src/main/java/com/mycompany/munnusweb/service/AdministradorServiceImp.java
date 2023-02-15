@@ -52,21 +52,20 @@ public class AdministradorServiceImp implements AdministradorService {
 
     @Override
     public Administrador encontrarAdministradorPorID(int id) throws ExcepcionNegocio {
-        
+
         Optional<Administrador> opAdmin = administradorDao.findAdministradorByID(id);
-        
-        if(!opAdmin.isPresent()){
-        
-        throw new ExcepcionNegocio("No se encuentra el admin con el id: " + id);
+
+        if (!opAdmin.isPresent()) {
+
+            throw new ExcepcionNegocio("No se encuentra el admin con el id: " + id);
         }
-      
-        
-        return   opAdmin.get();
+
+        return opAdmin.get();
     }
 
     @Override
     public Administrador encontrarAdministradorPorMatriculaAbogado(String matricula) throws ExcepcionNegocio {
-        return administradorDao.findAdministradorByMatriculaAbogado(matricula).orElseThrow(()-> new ExcepcionNegocio("no se encontro el administrados con la Matricula de abogado: " + matricula));
+        return administradorDao.findAdministradorByMatriculaAbogado(matricula).orElseThrow(() -> new ExcepcionNegocio("no se encontro el administrados con la Matricula de abogado: " + matricula));
     }
 
     /*

@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.mycompany.munnusweb.domain.Vivienda;
 import com.mycompany.munnusweb.service.ViviendaService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -81,11 +79,11 @@ public class ViviendaServlet extends HttpServlet {
             viviendaService.eliminarVivienda(direccionVivienda);
         } catch (ExcepcionNegocio ex) {
             ex.printStackTrace(); //luego cambiarlo por el usuario (red a pag o a la misma)
-            
+
             req.setAttribute("Error", ex.getMessage());
-            
+
             req.getRequestDispatcher("/listadoViviendas.jsp").forward(req, resp);
-            
+
         }
 
     }

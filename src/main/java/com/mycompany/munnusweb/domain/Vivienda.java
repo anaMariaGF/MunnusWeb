@@ -177,5 +177,5 @@ public class Vivienda implements Serializable {
     public String toString() {
         return "com.mycompany.munnusweb.domain.Vivienda[ idVivienda=" + idVivienda + " ]";
     }
-    
+
 }

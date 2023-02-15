@@ -50,44 +50,39 @@ public class AdministradorServlet extends HttpServlet {
          * Ahora este método va acceder al listado de personas por medio de la
          * instancia que estamos recibiendo el EJB
          */
-        
         String matricula = request.getParameter("matricula");
-         String nif = request.getParameter("nif");
+        String nif = request.getParameter("nif");
 
-        if(matricula!=null ){
-            
+        if (matricula != null) {
+
             try {
-             Administrador admin = administradorService.encontrarAdministradorPorMatriculaAbogado(matricula);
-               
-               
+                Administrador admin = administradorService.encontrarAdministradorPorMatriculaAbogado(matricula);
+
                 ArrayList arrayList = new ArrayList();
                 arrayList.add(admin);
-                   request.setAttribute("administradores", arrayList);
+                request.setAttribute("administradores", arrayList);
 
-        // Redirigimos al JSP, a la url donde muestrro esta lista
-        request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
-                
-                
+                // Redirigimos al JSP, a la url donde muestrro esta lista
+                request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
+
                 ///redireigiria a la pagina requerida, 
             } catch (ExcepcionNegocio ex) {
                 Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
-                
-                      ///redireigiria a lun apagina de error 
+
+                ///redireigiria a lun apagina de error 
             }
-        
-        
-        } else{
-             List<Administrador> administradores = administradorService.listarAdministradores();
-        System.out.println("Administradores: " + administradores);
 
-        // Ponemos personas en un alcance, a request se le pueden setear uno o varios
-        // atributos
-        request.setAttribute("administradores", administradores);
+        } else {
+            List<Administrador> administradores = administradorService.listarAdministradores();
+            System.out.println("Administradores: " + administradores);
 
-        // Redirigimos al JSP, a la url donde muestrro esta lista
-        request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
+            // Ponemos personas en un alcance, a request se le pueden setear uno o varios
+            // atributos
+            request.setAttribute("administradores", administradores);
+
+            // Redirigimos al JSP, a la url donde muestrro esta lista
+            request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
         }
-       
 
     }
 

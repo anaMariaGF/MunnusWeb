@@ -19,9 +19,9 @@ public interface ViviendaDao {
 
     public Vivienda findViviendaByID(int id_vivienda);
 
-    public Optional <Vivienda> findViviendaByPropietario(int id_propietario);
+    public Optional<Vivienda> findViviendaByPropietario(int id_propietario);
 
-    public Optional <Vivienda> findByDireccionVivienda(String direccionVvivienda);
+    public Optional<Vivienda> findByDireccionVivienda(String direccionVvivienda);
 
     public void insertVivienda(Vivienda vivienda);
 
