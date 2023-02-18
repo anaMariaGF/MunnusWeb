@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.mycompany.munnusweb.domain.TipoGastos;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  *
@@ -19,12 +20,14 @@ public interface TipoGastosService {
 
 	public List<TipoGastos> listarTipoGastos();
 
-	public TipoGastos encontrarTipoGastosPorID(int id);
+	public TipoGastos encontrarTipoGastosPorID(int id) throws ExcepcionNegocio ;
 
-	public void registrarTipoGasto(TipoGastos gasto);
+	public void registrarTipoGasto(TipoGastos gasto) throws ExcepcionNegocio ;
 
-	public void modificarTipoGastos(TipoGastos gasto);
+	public void modificarTipoGastos(TipoGastos gasto)throws ExcepcionNegocio ;
 
-	public void eliminarTipoGasto(int id);
+	public void eliminarTipoGasto(int id) throws ExcepcionNegocio ;
+        
+        public TipoGastos encontrarTipoGastosPorDescripcion(String descripcion)throws ExcepcionNegocio;
 
 }

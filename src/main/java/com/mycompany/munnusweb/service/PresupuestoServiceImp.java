@@ -87,7 +87,13 @@ public class PresupuestoServiceImp implements PresupuestoService {
            PresupuestoPK presupuestoId = new PresupuestoPK();
         presupuestoId.setIdAdministrador(idAdmin);
         presupuestoId.setIdPresupuesto(idPresupuesto);
-        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID(presupuestoId).orElseThrow(() -> new ExcepcionNegocio("No se puede actuliaca"));
+        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID(presupuestoId).orElseThrow(() -> new ExcepcionNegocio("No se puede actuliazar"));
         presupuestoDao.deletePresupuesto(presupuesto);
+    }
+
+    @Override
+    public Presupuesto encontrarPresupuestoPorNombreComunidad(String nombreComunidad) throws ExcepcionNegocio {
+        return presupuestoDao.findPresupuestoByNombreComunidad(nombreComunidad).orElseThrow(() -> new ExcepcionNegocio("No se ha encontrado el presupuesto de la comunidad: " + nombreComunidad));
+         
     }
 }

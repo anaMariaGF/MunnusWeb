@@ -1,8 +1,6 @@
 package com.mycompany.munnusweb.web;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.service.AdministradorService;
-import com.mycompany.munnusweb.util.ExcepcionNegocio;
-import java.io.PrintWriter;
 
 /**
  * Servlet implementation class InicioServlet
@@ -40,7 +36,7 @@ public class InicioServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         System.err.println("ingresando");
         pruebas();
         request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -58,10 +54,9 @@ public class InicioServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    public void pruebas()  {
-        
-        System.out.println("Ejecutadno pruebas)");
+    public void pruebas() {
 
+        System.out.println("Ejecutadno pruebas)");
 
     }
 }

@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.mycompany.munnusweb.domain.Vivienda;
 import com.mycompany.munnusweb.service.ViviendaService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,21 +34,43 @@ public class ViviendaServlet extends HttpServlet {
     ViviendaService viviendaService; // Cremos una instancia de nuestra if local
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /**
-         * Ahora este método va acceder al listado de personas por medio de la
-         * instancia que estamos recibiendo el EJB
-         */
-        List<Vivienda> viviendas = viviendaService.listarViviendas();
-        System.out.println("" + "Viviendas: " + viviendas);
+        String direccionVivienda = request.getParameter("direccionVivienda");
 
-        // Ponemos personas en un alcance, a request se le pueden setear uno o varios
-        // atributos
-        request.setAttribute("Viviendas", viviendas);
+        if (direccionVivienda != null) {
 
-        // Redirigimos al JSP
-        request.getRequestDispatcher("/listadoViviendas.jsp").forward(request, respose);
+            try {
+                Vivienda vivienda = viviendaService.econtrarViviendaPorDireccion(direccionVivienda);
+
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(vivienda);
+                request.setAttribute("propietarios", arrayList);
+
+                // Redirigimos al JSP, a la url donde muestrro esta lista
+                request.getRequestDispatcher("/listadoPropietarios.jsp").forward(request, response);
+            } catch (ExcepcionNegocio ex) {
+                Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+                ///redireigiria a lun apagina de error 
+            }
+
+        } else {
+
+            /**
+             * Ahora este método va acceder al listado de personas por medio de
+             * la instancia que estamos recibiendo el EJB
+             */
+            List<Vivienda> viviendas = viviendaService.listarViviendas();
+            System.out.println("Viviendas: " + viviendas);
+
+            // Ponemos personas en un alcance, a request se le pueden setear uno o varios
+            // atributos
+            request.setAttribute("Viviendas", viviendas);
+
+            // Redirigimos al JSP
+            request.getRequestDispatcher("/listadoViviendas.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -87,4 +112,5 @@ public class ViviendaServlet extends HttpServlet {
         }
 
     }
+
 }

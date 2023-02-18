@@ -12,6 +12,9 @@ import javax.persistence.PersistenceContext;
 
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.util.Constantes;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,6 +60,34 @@ public class FacturaDaoImp implements FacturaDao {
     public void deleteFactura(Factura factura) {
         // 1. actualizamos el estado del objeto en la base de datos => se borra.
         em.remove(em.merge(factura));
+    }
+
+    @Override
+    public Optional<Factura> findFacturaByFechaEmision(LocalDateTime fechaEmision) {
+        Query query = em.createQuery("Factura.findByFechaEmision");
+        query.setParameter("factura", fechaEmision);
+        return Optional.ofNullable((Factura) query.getResultList());
+    }
+
+    @Override
+    public Optional<Factura> findFacturaByPeriodo(String periodo) {
+        Query query = em.createQuery("Factura.findByPeriodo");
+        query.setParameter("factura", periodo);
+        return Optional.ofNullable((Factura) query.getResultList());
+    }
+
+    @Override
+    public Optional<Factura> findFacturaByEstadoF(String estatadoF) {
+        Query query = em.createQuery("Factura.findByPeriodo");
+        query.setParameter("factura", estatadoF);
+        return Optional.ofNullable((Factura) query.getResultList());
+    }
+
+    @Override
+    public Optional<Factura> findFacturaByValor(Double valor) {
+        Query query = em.createQuery("Factura.findByValor");
+        query.setParameter("factura", valor);
+        return Optional.ofNullable((Factura) query.getResultList());
     }
 
 }

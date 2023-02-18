@@ -81,4 +81,9 @@ public class ViviendaServiceImp implements ViviendaService {
         viviendaDao.deleteVivienda(vivienda);
     }
 
+    @Override
+    public Vivienda econtrarViviendaPorDireccion(String direccionVivienda) throws ExcepcionNegocio {
+         return viviendaDao.findByDireccionVivienda(direccionVivienda).orElseThrow(() -> new ExcepcionNegocio("No se puede encontrar la vivienda, ya que no se encuentra la dirección: " + direccionVivienda));
+    }
+
 }

@@ -21,6 +21,8 @@ public interface PresupuestoService {
     public List<Presupuesto> listarPresupuestos();
 
     public Presupuesto encontrarPresupuestoPorID(int idAdmin, int idPresupuesto) throws ExcepcionNegocio;
+    
+    public Presupuesto encontrarPresupuestoPorNombreComunidad(String nombreComunidad) throws ExcepcionNegocio;
 
     public void registrarPresupuesto(String nombreComunidad, int numProtales, Double totalPresupuesto) throws ExcepcionNegocio;
 

@@ -44,11 +44,27 @@ public class AdministradorServiceImp implements AdministradorService {
     @Inject
     private AdministradorDao administradorDao;
 
-    // Ahora nos apoyamos de la interfaz para completar los servicios
+    /*
+    Se encarga de obtener una lista de todos los 
+    administradores. En este caso, simplemente 
+    hace una llamada al método "findAllAdministrador()" 
+    definido en la clase "administradorDao" y 
+    devuelve la lista de administradores resultante
+    */
     @Override
     public List<Administrador> listarAdministradores() {
         return administradorDao.findAllAdministrador();
     }
+    
+    /*
+    se encarga de encontrar un administrador específico a partir de su ID. 
+    Para hacer esto, primero llama al método "findAdministradorByID(int id)" 
+    definido en la clase "administradorDao", que devuelve un objeto
+    Optional<Administrador> que puede o no contener el administrador buscado. 
+    Si el Optional está presente, devuelve el administrador contenido en el 
+    Optional, de lo contrario lanza una ExcepcionNegocio indicando que el 
+    administrador no se encontró.
+    */
 
     @Override
     public Administrador encontrarAdministradorPorID(int id) throws ExcepcionNegocio {
@@ -166,7 +182,7 @@ public class AdministradorServiceImp implements AdministradorService {
     }
 
     /*
-	 * El método "validarAdministrador" se encarga de permitir que un administrador
+	 * El método "inicarSesionAdministrador" se encarga de permitir que un administrador
 	 * inicie sesión en el sistema. Para ello, solicita al usuario su número de
 	 * matrícula de abogado y su contraseña. Luego, verifica que los datos
 	 * ingresados se encuentren en la base de datos y que la cuenta no se encuentre

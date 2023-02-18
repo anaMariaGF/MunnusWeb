@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import com.mycompany.munnusweb.data.TipoGastosDao;
 import com.mycompany.munnusweb.domain.TipoGastos;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  *
@@ -32,25 +33,31 @@ public class TipoGastosServiceImp implements TipoGastosService {
 	}
 
 	@Override
-	public TipoGastos encontrarTipoGastosPorID(int id) {
+	public TipoGastos encontrarTipoGastosPorID(int id)throws ExcepcionNegocio  {
 		return tipoGastosDao.findByIdTipoGasto(id);
 	}
 
 	@Override
-	public void registrarTipoGasto(TipoGastos gasto) {
+	public void registrarTipoGasto(TipoGastos gasto) throws ExcepcionNegocio {
 		System.out.println(
 				"com.mycompany.munnusweb.service.TipoGastosServiceImp.registrarTipoGasto()" + " se va a registar");
 		tipoGastosDao.insertTipoGasto(gasto);
 	}
 
 	@Override
-	public void modificarTipoGastos(TipoGastos gasto) {
+	public void modificarTipoGastos(TipoGastos gasto)throws ExcepcionNegocio  {
 		tipoGastosDao.updateTipoGasto(gasto);
 	}
 
 	@Override
-	public void eliminarTipoGasto(int id) {
+	public void eliminarTipoGasto(int id)throws ExcepcionNegocio  {
 		tipoGastosDao.deleteTipoGasto(id);
 	}
+
+    @Override
+    public TipoGastos encontrarTipoGastosPorDescripcion(String descripcion)throws ExcepcionNegocio  {
+        return tipoGastosDao.findByDescripcion(descripcion).
+                orElseThrow(() -> new ExcepcionNegocio("No se puede encontrar la vivienda, ya que no se encuentra la dirección: " + descripcion));
+    }
 
 }

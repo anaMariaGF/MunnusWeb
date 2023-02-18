@@ -34,7 +34,7 @@ public class AdministradorServlet extends HttpServlet {
     AdministradorService administradorService; // Cremos una instancia de nuestra if local
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         /*
 		 * //Especificamos formato de respuesta
@@ -63,7 +63,7 @@ public class AdministradorServlet extends HttpServlet {
                 request.setAttribute("administradores", arrayList);
 
                 // Redirigimos al JSP, a la url donde muestrro esta lista
-                request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
+                request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, response);
 
                 ///redireigiria a la pagina requerida, 
             } catch (ExcepcionNegocio ex) {
@@ -81,7 +81,7 @@ public class AdministradorServlet extends HttpServlet {
             request.setAttribute("administradores", administradores);
 
             // Redirigimos al JSP, a la url donde muestrro esta lista
-            request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, respose);
+            request.getRequestDispatcher("/listadoAdministradores.jsp").forward(request, response);
         }
 
     }
@@ -117,6 +117,21 @@ public class AdministradorServlet extends HttpServlet {
             administradorService.administradorDeBaja(matriculaAbogado);
         } catch (ExcepcionNegocio ex) {
             Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+        @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String matricula = "s";
+        String claveVieja = "";
+        String claveNueva = ";";
+
+        try {
+            administradorService.cambioClaveAdministrador(matricula, claveVieja, claveNueva);
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(PropietarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
