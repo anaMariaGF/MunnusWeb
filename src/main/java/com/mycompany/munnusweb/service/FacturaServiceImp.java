@@ -62,6 +62,7 @@ public class FacturaServiceImp implements FacturaService {
     @Override
     public void registrarFactura(String estado, LocalDateTime fechaEmision, String periodo, Double valor)throws ExcepcionNegocio{
 
+        System.out.println("Servicio registara factura ");
         List<Factura> facturas = facturaDao.findAllFacturas();
         System.err.println("Trae facturas  " + facturas.size());
         

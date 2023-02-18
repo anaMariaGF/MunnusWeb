@@ -72,7 +72,7 @@ public class FacturaDaoImp implements FacturaDao {
     @Override
     public Optional<Factura> findFacturaByPeriodo(String periodo) {
         Query query = em.createQuery("Factura.findByPeriodo");
-        query.setParameter("factura", periodo);
+        query.setParameter("periodo", periodo);
         return Optional.ofNullable((Factura) query.getResultList());
     }
 

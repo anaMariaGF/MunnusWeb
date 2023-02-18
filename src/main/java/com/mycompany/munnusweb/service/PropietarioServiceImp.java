@@ -155,7 +155,17 @@ public class PropietarioServiceImp implements PropietarioService {
     @Override
     public boolean inicarSesionPropietario(String email, String clave)
             throws ExcepcionNegocio {
-
+        
+                if(clave == null || clave.trim().isEmpty()){
+            
+            throw new ExcepcionNegocio("La clave no puede ser nula");
+            
+        }
+        
+        if(email == null || email.trim().isEmpty()){
+            throw new ExcepcionNegocio("El email no puede ser nula");
+        }
+        
         try {
 
             String claveEncriptada = Encriptador.encriptadoMD5(clave);

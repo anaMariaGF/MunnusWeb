@@ -35,7 +35,7 @@ public class FacturaServlet extends HttpServlet {
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    FacturaService facturaService; // Cremos una instancia de nuestra if local
+    private FacturaService facturaService; // Cremos una instancia de nuestra if local
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,6 +54,7 @@ public class FacturaServlet extends HttpServlet {
                 // Redirigimos al JSP, a la url donde muestrro esta lista
                 request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, response);
             } catch (ExcepcionNegocio ex) {
+                ex.printStackTrace();
                 Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
 
                 ///redireigiria a lun apagina de error 
@@ -86,8 +87,10 @@ public class FacturaServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.err.println("entrando");
+        
+        System.out.println("Iniciando post ");
+        System.out.println("entrando");
+        
         String estadoF = req.getParameter("estadoF");
         String fechaEmision = req.getParameter("fechaEmision"); //aqui lo puse STRING esta bien?
         String periodo = req.getParameter("periodo");
@@ -103,6 +106,7 @@ public class FacturaServlet extends HttpServlet {
             System.err.println("Error al convertir el valor a double: " + e.getMessage());
         } catch (ExcepcionNegocio ex) {
             Logger.getLogger(FacturaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(); //ponerlo para ver mas detalles 
         }
 
     }

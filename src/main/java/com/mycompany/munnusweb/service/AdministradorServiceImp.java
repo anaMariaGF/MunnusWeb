@@ -192,7 +192,18 @@ public class AdministradorServiceImp implements AdministradorService {
      */
     @Override
     public boolean inicarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio {
-
+       
+        if(clave == null || clave.trim().isEmpty()){
+            
+            throw new ExcepcionNegocio("La clave no puede ser nula");
+            
+        }
+        
+        if(matricula == null || matricula.trim().isEmpty()){
+            throw new ExcepcionNegocio("La matricula no puede ser nula");
+        }
+        
+        
         try {
 
             String claveEncriptada = Encriptador.encriptadoMD5(clave);
