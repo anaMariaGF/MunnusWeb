@@ -38,11 +38,11 @@ public class TipoGastos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "TIPO_GASTOS_ID_TIPO_GASTOS")
+    @Column(name = "TIPO_GASTOS_ID_TIPO_GASTOS", nullable = false)
     private Integer tipoGastosIdTipoGastos;
     
     @Size(max = 255)
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoGastos")
     private Collection<PresupuestoHasTipoGastos> presupuestoHasTipoGastosCollection;

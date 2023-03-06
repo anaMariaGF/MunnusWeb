@@ -26,23 +26,27 @@ public class PresupuestoServiceImp implements PresupuestoService {
     @Inject
     private PresupuestoDao presupuestoDao;
 
-    // Ahora nos apoyamos de la interfaz para completar los servicios
+
     @Override
     public List<Presupuesto> listarPresupuestos() {
         return presupuestoDao.findAllPresupuestos();
     }
 
     @Override
-    public Presupuesto encontrarPresupuestoPorID(int idAdmin, int idPresupuesto) throws ExcepcionNegocio{
+    public Presupuesto encontrarPresupuestoPorID(int idAdmin, int idPresupuesto) 
+            throws ExcepcionNegocio{
         PresupuestoPK presupuestoId = new PresupuestoPK();
         presupuestoId.setIdAdministrador(idAdmin);
         presupuestoId.setIdPresupuesto(idPresupuesto);
-        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID(presupuestoId).orElseThrow(() -> new ExcepcionNegocio("No se puede actuliaca"));
+        Presupuesto presupuesto = presupuestoDao.
+                findPresupuestoByID(presupuestoId).orElseThrow(() -> new
+         ExcepcionNegocio("No se encontro el presupuesto."));
         return presupuesto;
     }
 
     @Override
-    public void registrarPresupuesto(String nombreComunidad, int numProtales, Double totalPresupuesto) throws ExcepcionNegocio {
+    public void registrarPresupuesto(String nombreComunidad,
+            int numProtales, Double totalPresupuesto) throws ExcepcionNegocio {
 
         List<Presupuesto> presupuestos = presupuestoDao.findAllPresupuestos();
         System.err.println("Trae presupuestos  " + presupuestos.size());
@@ -63,37 +67,40 @@ public class PresupuestoServiceImp implements PresupuestoService {
         presupuestoNuevo.setTotalPresupuesto(totalPresupuesto);
 
         presupuestoDao.insertPresupuesto(presupuestoNuevo);
-        
-        
-        
-        
-        System.out.println("Se ha registrado el presupuesto para la comunidad " + nombreComunidad + " con éxito ");
-        
-        
-        // los gastsos ee van a clacular base de datos  o si se tiene que calculo 
+
+        System.out.println("Se ha registrado el presupuesto para la comunidad " + nombreComunidad + " con éxito "); 
     }
 
     @Override
-    public void modificarPresupuesto(int idAdmin, int idPresupuesto) throws ExcepcionNegocio {
+    public void modificarPresupuesto(int idAdmin, int idPresupuesto)
+            throws ExcepcionNegocio {
         PresupuestoPK presupuestoId = new PresupuestoPK();
         presupuestoId.setIdAdministrador(idAdmin);
         presupuestoId.setIdPresupuesto(idPresupuesto);
-        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID(presupuestoId).orElseThrow(() -> new ExcepcionNegocio("No se puede actuliaca"));
+        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID
+        (presupuestoId).orElseThrow(() -> new ExcepcionNegocio
+        ("No se puede actulizar"));
         presupuestoDao.updatePresupuesto(presupuesto);
     }
 
     @Override
-    public void eliminarPresupuesto(int idAdmin, int idPresupuesto) throws ExcepcionNegocio{
+    public void eliminarPresupuesto(int idAdmin, int idPresupuesto)
+            throws ExcepcionNegocio{
            PresupuestoPK presupuestoId = new PresupuestoPK();
         presupuestoId.setIdAdministrador(idAdmin);
         presupuestoId.setIdPresupuesto(idPresupuesto);
-        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID(presupuestoId).orElseThrow(() -> new ExcepcionNegocio("No se puede actuliazar"));
+        Presupuesto presupuesto = presupuestoDao.findPresupuestoByID
+        (presupuestoId).orElseThrow(() -> new ExcepcionNegocio
+        ("No se puede eliminar"));
         presupuestoDao.deletePresupuesto(presupuesto);
     }
 
     @Override
-    public Presupuesto encontrarPresupuestoPorNombreComunidad(String nombreComunidad) throws ExcepcionNegocio {
-        return presupuestoDao.findPresupuestoByNombreComunidad(nombreComunidad).orElseThrow(() -> new ExcepcionNegocio("No se ha encontrado el presupuesto de la comunidad: " + nombreComunidad));
+    public Presupuesto encontrarPresupuestoPorNombreComunidad
+        (String nombreComunidad) throws ExcepcionNegocio {
+        return presupuestoDao.findPresupuestoByNombreComunidad(nombreComunidad)
+                .orElseThrow(() -> new ExcepcionNegocio
+        ("No se ha encontrado el presupuesto de la comunidad: " + nombreComunidad));
          
     }
 }

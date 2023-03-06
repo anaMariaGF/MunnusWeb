@@ -90,18 +90,22 @@ public class AdministradorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         System.err.println("entrando");
+        String apellidos = req.getParameter("apellidos");
+        String clave = req.getParameter("clave");
+        String email = req.getParameter("email");
+
         String nif = req.getParameter("nif");
         String nombres = req.getParameter("nombres");
         String matriculaAbogado = req.getParameter("matriculaAbogado");
-        String apellidos = req.getParameter("apellidos");
+        
         String telefono = req.getParameter("telefono");
-        String email = req.getParameter("email");
-        String clave = req.getParameter("clave");
+        
+        
 
         System.err.println("mensaje " + nombres);
 
         try {
-            administradorService.registrarAdministrador(nif, matriculaAbogado, nombres, apellidos, telefono, email, clave);
+            administradorService.registrarAdministrador(nif, matriculaAbogado,nombres,  apellidos,  telefono, email,clave);
         } catch (ExcepcionNegocio ex) {
             ex.printStackTrace();
         }
@@ -117,6 +121,7 @@ public class AdministradorServlet extends HttpServlet {
             administradorService.administradorDeBaja(matriculaAbogado);
         } catch (ExcepcionNegocio ex) {
             Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }
@@ -132,6 +137,7 @@ public class AdministradorServlet extends HttpServlet {
             administradorService.cambioClaveAdministrador(matricula, claveVieja, claveNueva);
         } catch (ExcepcionNegocio ex) {
             Logger.getLogger(PropietarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }

@@ -15,15 +15,7 @@ import javax.persistence.Query;
 import com.mycompany.munnusweb.domain.Administrador;
 import com.mycompany.munnusweb.util.Constantes;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import static javax.ws.rs.client.Entity.entity;
 
 /**
  *
@@ -44,7 +36,11 @@ public class AdministradorDaoImp implements AdministradorDao {
 	public List<Administrador> findAllAdministrador() {
 		// Creamos un NamedQuery, y el listado lo leemos con getResultList
 		// Por lo que estamos escribiendo menos código
-		return em.createNamedQuery("Administrador.findAll").getResultList();
+		Query query = em.createNamedQuery("Administrador.findAll");
+		List<Administrador> resultList = query.getResultList();
+		System.out.println("Se trae de DB" + resultList.size());
+		return resultList;
+		
 	}
 
 	@Override
@@ -60,9 +56,10 @@ public class AdministradorDaoImp implements AdministradorDao {
 
 		// En este caso no vamos a usar un NamedQuery, que podríamos haber
 		// agregado en la Entidad de Usuario sino que vamos a incluirlo directamente.
-		Query query = em.createQuery("Administrador.findByMatriculaAbogado");
+		Query query = em.createNamedQuery("Administrador.findByMatriculaAbogado");
+		//Query query = em.createQuery("Administrador.findByMatriculaAbogado");
 		query.setParameter("matriculaAbogado", matricula);
-		return Optional.ofNullable((Administrador) query.getSingleResult());
+		return query.getResultStream().findFirst();
 
 	}
 

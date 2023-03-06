@@ -5,7 +5,7 @@
 package com.mycompany.munnusweb.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,12 +44,14 @@ public class Factura implements Serializable {
     @Column(name = "id_Factura", nullable = false)
     private Integer idFactura;
     @Size(max = 255)
-    @Column(name = "estadoF")
-    private String estadoF;
-    @Column(name = "fechaEmision", nullable = false)
     
-    private LocalDateTime fechaEmision;
+    @Column(name = "estadoF", nullable = false)
+    private String estadoF;
+    
+    @Column(name = "fechaEmision", nullable = false)
+    private LocalDate fechaEmision;
     @Size(max = 255)
+    
     @Column(name = "periodo", nullable = false)
     private String periodo;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -81,11 +83,11 @@ public class Factura implements Serializable {
         this.estadoF = estadoF;
     }
 
-    public LocalDateTime getFechaEmision() {
+    public LocalDate getFechaEmision() {
         return fechaEmision;
     }
 
-    public void setFechaEmision(LocalDateTime fechaEmision) {
+    public void setFechaEmision(LocalDate fechaEmision) {
         this.fechaEmision = fechaEmision;
     }
 

@@ -77,20 +77,25 @@ public class PropietarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         System.err.println("entrando");
-        String apellidos = req.getParameter("apellidos");
-        String clave = req.getParameter("clave");
-        String email = req.getParameter("email");
-        String nombres = req.getParameter("nombres");
-        String numeroCuentaBancaria = req.getParameter("numeroCuentaBancaria");
-        String telefono = req.getParameter("telefono");
+        String apellidos = req.getParameter("apellido").trim();
+        String clave = req.getParameter("clave").trim();
+        String email = req.getParameter("email").trim();
+        String nombres = req.getParameter("nombre").trim();
+        String numeroCuentaBancaria = req.getParameter("numero_cuenta").trim();
+        String telefono = req.getParameter("telefono").trim();
 
-        System.err.println("mensaje error " + nombres);
+       
 
         try {
             propietarioService.registrarPropietario(apellidos, clave, email, nombres, numeroCuentaBancaria, telefono);
+            req.getRequestDispatcher("/inicioSesionProp.jsp").forward(req, resp);
         } catch (ExcepcionNegocio ex) {
-            ex.printStackTrace();
+            System.out.println("Error:" + ex.getMessage());
+
+          req.setAttribute("msgError", ex.getMessage());
+          req.getRequestDispatcher("/formProp.jsp").forward(req, resp);
         }
+        
 
     }
 

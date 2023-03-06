@@ -43,7 +43,7 @@ public class Presupuesto implements Serializable {
     @Column(name = "nombreComunidad", nullable = false)
     private String nombreComunidad;
    
-    @Column(name = "num_Protales")
+    @Column(name = "num_Protales", nullable = false)
     private Integer numProtales;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -51,7 +51,7 @@ public class Presupuesto implements Serializable {
     @Column(name = "totalPresupuesto",  nullable = false)
     private Double totalPresupuesto;
     
-    @Column(name = "totalGastos", insertable = false, updatable = false)
+    @Column(name = "totalGastos", insertable = false, updatable = false, nullable = false)
     private Double totalGastos;
    
     @JoinColumn(name = "id_Administrador", referencedColumnName = "id_Administrador", insertable = false, updatable = false)

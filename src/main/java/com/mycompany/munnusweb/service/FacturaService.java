@@ -10,6 +10,7 @@ import javax.ejb.Local; //java been de tipo local
 
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -23,13 +24,13 @@ public interface FacturaService {
 
 	public Factura encontrarFacturaPorID(int id);
 
-	public void registrarFactura(String estadoF, LocalDateTime fechaEmision, String periodo, Double valor)throws ExcepcionNegocio;
+	public void registrarFactura(String estadoF, LocalDate fechaEmision, String periodo, Double valor)throws ExcepcionNegocio;
 
-	public void modificarFactura(String estado, LocalDateTime fechaEmision, String periodo, Double valor)throws ExcepcionNegocio;
+	public void modificarFactura(String estado, LocalDate fechaEmision, String periodo, Double valor)throws ExcepcionNegocio;
 
-	public void eliminarFactura(LocalDateTime fechaEmision)throws ExcepcionNegocio;
+	public void eliminarFactura(LocalDate fechaEmision)throws ExcepcionNegocio;
         
-        public Factura encontrarFacturaPorFechaEmision(LocalDateTime fechaEmision)throws ExcepcionNegocio;
+        public Factura encontrarFacturaPorFechaEmision(LocalDate fechaEmision)throws ExcepcionNegocio;
 
         public Factura encontrarFacturaPorPeriodo(String periodo)throws ExcepcionNegocio;
         

@@ -18,8 +18,6 @@ import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.service.FacturaService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -97,11 +95,11 @@ public class FacturaServlet extends HttpServlet {
         String valor = req.getParameter("valor");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime fechaEmisionLocalDateTime = LocalDate.parse(fechaEmision, formatter).atTime(LocalTime.MIN);
+        LocalDate fechaEmisionLocalDate = LocalDate.parse(fechaEmision, formatter);
 
         try {
             Double valorDouble = Double.parseDouble(valor);
-            facturaService.registrarFactura(estadoF, fechaEmisionLocalDateTime, periodo, valorDouble);
+            facturaService.registrarFactura(estadoF, fechaEmisionLocalDate, periodo, valorDouble);
         } catch (NumberFormatException e) {
             System.err.println("Error al convertir el valor a double: " + e.getMessage());
         } catch (ExcepcionNegocio ex) {
@@ -113,11 +111,15 @@ public class FacturaServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        LocalDateTime fechaEmisionLocalDateTime = LocalDateTime.parse("fechaEmisionLoca");
-
+        
+        String fechaEmision = req.getParameter("fechaEmision");
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fechaEmisionLocalDate = LocalDate.parse(fechaEmision, formatter);
+        
+     
         try {
-            facturaService.eliminarFactura(fechaEmisionLocalDateTime);
+            facturaService.eliminarFactura(fechaEmisionLocalDate);
         } catch (ExcepcionNegocio ex) {
             Logger.getLogger(FacturaServlet.class.getName()).log(Level.SEVERE, null, ex);
 

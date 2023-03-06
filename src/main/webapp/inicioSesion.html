@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="txt/css" href="styleM1.css">
+  <link rel="stylesheet" type="txt/css" href="estilos/styleM1.css">
+  <link rel="stylesheet" href="lb/css/bootstrap.min.css">
+
   <title>Inicio de Sesión</title>
   <style>
     body {
@@ -23,11 +25,11 @@
 
     form {
       width: 100%;
-      max-width: 400px;
+      max-width: 600px;
     }
 
     .form-group {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
 
     }
 
@@ -45,27 +47,38 @@
   </style>
 </head>
 <body>
+    
+    <% String mensaje =request.getAttribute("mensaejeError")%> <!--Esto viene de iniSesionServlet-->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-6 form-container">
-            <img src="img/munus.png" class="rounded mx-auto d-block" alt="..." width="60%">
+            <img src="resources/img/munus.png" class="rounded mx-auto d-block" alt="..." width="60%">
           </div>
           <div class="col-md-6 form-container">
-            <form >
+              <form action="/inicioSesion?rol=prop" method="post">
             <div class="col-md-6 form-container">
               <div class="form-group">
-                <input type="email" class="form-control form-control-sm" placeholder="Dirección de correo electrónico" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="email" class="form-control form-control-sm" placeholder="Matricula Abogado/Email Propietario" id="email" aria-describedby="emailHelp">
               </div>
             </div>
             <div class="col-md-6 form-container">
               <div class="form-group">
-                <input placeholder="Password" type="password" class="form-control form-control-sm mx-2" id="exampleInputPassword1">
+                <input placeholder="Password" name="clave" type="password" class="form-control form-control-sm mx-2" id="clave">
               </div>
             </div>
             <div class="col-md-6 form-container">
               <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+             
+              <c:if>
+                  mensaje = ""
+              </c:if>
+              <%
+              if(mensaje !=nul){
+              out.print(mensaje)
+              }
+              %>
             </div>
             <div class="col-md-6 form-container ">
                 <a href="#" class="mt-4" style="float:right;font-size:12px;">Olvidaste tu contraseña?</a>

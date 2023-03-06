@@ -45,24 +45,24 @@ public class Vivienda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_Vivienda")
+    @Column(name = "id_Vivienda", nullable = false)
     private Integer idVivienda;
     @Size(max = 1)
-    @Column(name = "ascensor")
+    @Column(name = "ascensor", nullable = false)
     private String ascensor;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "coeficienteVivienda")
+    @Column(name = "coeficienteVivienda", nullable = false)
     private Double coeficienteVivienda;
     @Size(max = 255)
-    @Column(name = "direccionVivienda")
+    @Column(name = "direccionVivienda", nullable = false)
     private String direccionVivienda;
     @Size(max = 1)
-    @Column(name = "parking")
+    @Column(name = "parking", nullable = false)
     private String parking;
     @Size(max = 1)
-    @Column(name = "portal")
+    @Column(name = "portal", nullable = false)
     private String portal;
-    @Column(name = "totalPagar")
+    @Column(name = "totalPagar", nullable = false)
     private Double totalPagar;
     @JoinTable(name = "propietario_has_vivienda", joinColumns = {
         @JoinColumn(name = "vivienda_id_Vivienda", referencedColumnName = "id_Vivienda")}, inverseJoinColumns = {

@@ -43,29 +43,29 @@ public class Propietario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_Propietario")
+    @Column(name = "id_Propietario", nullable = false)
     private Integer idPropietario;
     @Size(max = 255)
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
     @Size(max = 255)
-    @Column(name = "clave")
+    @Column(name = "clave", nullable = false)
     private String clave;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
     @Size(max = 1)
-    @Column(name = "estadoCuentaA")
+    @Column(name = "estadoCuentaA", nullable = true)
     private String estadoCuentaA;
     @Size(max = 255)
-    @Column(name = "nombres")
+    @Column(name = "nombres", nullable = false)
     private String nombres;
     @Size(max = 255)
-    @Column(name = "numeroCuentaBancaria")
+    @Column(name = "numeroCuentaBancaria", nullable = false)
     private String numeroCuentaBancaria;
     @Size(max = 255)
-    @Column(name = "telefono")
+    @Column(name = "telefono", nullable = false)
     private String telefono;
     @ManyToMany(mappedBy = "propietarioCollection")
     private Collection<Vivienda> viviendaCollection;

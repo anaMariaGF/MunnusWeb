@@ -12,7 +12,8 @@ import javax.inject.Inject;
 import com.mycompany.munnusweb.data.FacturaDao;
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -31,7 +32,7 @@ public class FacturaServiceImp implements FacturaService {
     public List<Factura> listarFacturas() {
         return facturaDao.findAllFacturas();
     }
-
+       //Función que devuelve una factura especifica segun un id 
     @Override
     public Factura encontrarFacturaPorID(int id) {
         return facturaDao.findFacturaByID(id);
@@ -60,7 +61,8 @@ public class FacturaServiceImp implements FacturaService {
     */
 
     @Override
-    public void registrarFactura(String estado, LocalDateTime fechaEmision, String periodo, Double valor)throws ExcepcionNegocio{
+    public void registrarFactura(String estado, LocalDate fechaEmision, 
+            String periodo, Double valor)throws ExcepcionNegocio{
 
         System.out.println("Servicio registara factura ");
         List<Factura> facturas = facturaDao.findAllFacturas();
@@ -77,62 +79,83 @@ public class FacturaServiceImp implements FacturaService {
                         + factura.getEstadoF());
 
             }
+            
             if (existeLaFacturaDeEstePeriodo) {
                 System.err.println("Esta factura ya esta registrada y su estado es:  " + estado 
                         + " Su fecha de emision es: " + factura.getFechaEmision() 
                         + " Y su valor es de " + factura.getValor());
-            }
+           
+            }    
+                //Nueva factura:
+
+                Factura facturaNueva = new Factura();
+                facturaNueva.setEstadoF(estado);
+                facturaNueva.setFechaEmision(fechaEmision);
+                facturaNueva.setPeriodo(periodo);
+                facturaNueva.setValor(valor);
+
+                facturaDao.insertFactura(facturaNueva);
+                System.out.println("Se ha registrado la factura con éxito ");
+            
         }
-        //Nueva factura:
-
-        Factura factura = new Factura();
-        factura.setEstadoF(estado);
-        factura.setFechaEmision(fechaEmision);
-        factura.setPeriodo(periodo);
-        factura.setValor(valor);
-
-        facturaDao.insertFactura(factura);
-        System.out.println("Se ha registrado la factura con éxito ");
+        
     }
     
     @Override
-    public void modificarFactura(String estado, LocalDateTime fechaEmision, String periodo, Double valor) throws ExcepcionNegocio{
-        Factura factura = facturaDao.findFacturaByFechaEmision(fechaEmision).orElseThrow(()->
-                new ExcepcionNegocio("No se puede modificar la factura, ya que no se encuentra en la fecha de emisión especificada" + fechaEmision));
+    public void modificarFactura(String estado, LocalDate fechaEmision, 
+            String periodo, Double valor) throws ExcepcionNegocio{
+        Factura factura = facturaDao.findFacturaByFechaEmision(fechaEmision)
+                .orElseThrow(()-> new ExcepcionNegocio("No se puede modificar "
+                        + "la factura, ya que no se encuentra en la fecha de "
+                        + "emisión especificada" + fechaEmision));
         facturaDao.updateFactura(factura);
     }
     
     @Override
-    public void eliminarFactura(LocalDateTime fechaEmision)throws ExcepcionNegocio{
-        Factura factura = facturaDao.findFacturaByFechaEmision(fechaEmision).orElseThrow(()->
-                new ExcepcionNegocio("No se puede eliminar la factura, ya que no se encuentra en la fecha de emisión especificada" + fechaEmision));
+    public void eliminarFactura(LocalDate fechaEmision)
+            throws ExcepcionNegocio{
+        Factura factura = facturaDao.findFacturaByFechaEmision(fechaEmision)
+                .orElseThrow(()-> new ExcepcionNegocio("No se puede eliminar "
+                        + "la factura, ya que no se encuentra en la fecha de "
+                        + "emisión especificada" + fechaEmision));
+        
         facturaDao.deleteFactura(factura);
     }
     
     @Override
-    public Factura encontrarFacturaPorFechaEmision(LocalDateTime fechaEmision)throws ExcepcionNegocio{
-        return facturaDao.findFacturaByFechaEmision(fechaEmision).orElseThrow(()->
-                new ExcepcionNegocio("No se puede encontrar la factura, ya que no se encuentra en la fecha de emisión especificada" + fechaEmision));
+    public Factura encontrarFacturaPorFechaEmision(LocalDate fechaEmision)
+            throws ExcepcionNegocio{return facturaDao.findFacturaByFechaEmision
+        (fechaEmision).orElseThrow(()->new ExcepcionNegocio("No se puede "
+                + "encontrar la factura, ya que no se encuentra en la fecha "
+                + "de emisión especificada" + fechaEmision));
  
     }
 
     @Override
-    public Factura encontrarFacturaPorPeriodo(String periodo) throws ExcepcionNegocio {
+    public Factura encontrarFacturaPorPeriodo(String periodo) 
+            throws ExcepcionNegocio {
         return facturaDao.findFacturaByPeriodo(periodo).orElseThrow(()->
-                new ExcepcionNegocio("No se puede encontrar la factura, ya que no se encuentra en el periodo especificado" + periodo));
+                new ExcepcionNegocio("No se puede encontrar la factura, ya "
+                     + "que no se encuentra en el periodo especificado" 
+                        + periodo));
     }
 
     @Override
-    public Factura encontrarFacturaPorEstadoF(String estatadoF) throws ExcepcionNegocio {
+    public Factura encontrarFacturaPorEstadoF(String estatadoF) 
+            throws ExcepcionNegocio {
         return facturaDao.findFacturaByEstadoF(estatadoF).orElseThrow(()->
-                new ExcepcionNegocio("No se puede encontrar la factura, ya que no se encuentra en el estatdo de la factura especificado" + estatadoF));
+                new ExcepcionNegocio("No se puede encontrar la factura, ya"
+                        + "que no se encuentra en el estatdo de la factura"
+                        + " especificado" + estatadoF));
     }
 
     @Override
-    public Factura encontrarFacturaPorValor(Double valor) throws ExcepcionNegocio {
+    public Factura encontrarFacturaPorValor(Double valor) 
+            throws ExcepcionNegocio {
         return facturaDao.findFacturaByValor(valor).orElseThrow(()->
-                new ExcepcionNegocio("No se puede encontrar la factura, ya que no se encuentra en el valor especificado" + valor));
+                new ExcepcionNegocio("No se puede encontrar la factura, ya"
+                        + " que no se encuentra en el valor especificado" 
+                        + valor));
     }
-    
-    
+ 
 }

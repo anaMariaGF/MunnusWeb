@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.service.AdministradorService;
+import com.mycompany.munnusweb.service.PropietarioService;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
  * Servlet implementation class InicioServlet
@@ -24,6 +26,11 @@ public class InicioServlet extends HttpServlet {
      */
     @Inject
     AdministradorService adminService;
+    @Inject
+    PropietarioService propService;
+
+    @Inject
+    FacturaService facService;
 
     public InicioServlet() {
         super();
@@ -34,10 +41,11 @@ public class InicioServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.err.println("ingresando");
+        System.err.println("Iniciando...");
         pruebas();
         request.getRequestDispatcher("/index.jsp").forward(request, response);
         //PrintWriter out = response.getWriter();
@@ -48,6 +56,7 @@ public class InicioServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
      * response)
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
@@ -56,7 +65,18 @@ public class InicioServlet extends HttpServlet {
 
     public void pruebas() {
 
-        System.out.println("Ejecutadno pruebas)");
 
+        
+        try {
+            adminService.registrarAdministrador("1234", "1234", "Ana","1234", "123456","anamgfandi@gmail.com","2142003");
+
+            propService.registrarPropietario("Fandiño", "1234", "pepe@gmail.com", "pepe", "12345678", "6358005");
+        } catch (ExcepcionNegocio e) {
+            System.out.println(e.getMessage());
+
+
+            
+
+        }
     }
 }

@@ -20,7 +20,7 @@ public interface AdministradorDao {
 
 	public Optional<Administrador> findAdministradorByID(int idAdmin);
 
-	public Optional<Administrador> findAdministradorByMatriculaAbogado(String matriculaABuscar);
+	public Optional<Administrador> findAdministradorByMatriculaAbogado(String matricula);
 
 	public void insertAdministrador(Administrador administrador);
 

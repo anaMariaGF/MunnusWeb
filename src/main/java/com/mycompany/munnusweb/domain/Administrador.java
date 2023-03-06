@@ -45,32 +45,32 @@ public class Administrador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_Administrador")
+    @Column(name = "id_Administrador", nullable = false)
     private Integer idAdministrador;
     @Size(max = 255)
-    @Column(name = "apellidos")
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
     @Size(max = 255)
-    @Column(name = "clave")
+    @Column(name = "clave", nullable = false)
     private String clave;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
     @Size(max = 1)
-    @Column(name = "estadoCuentaA")
+    @Column(name = "estadoCuentaA", nullable = false)
     private String estadoCuentaA;
     @Size(max = 255)
-    @Column(name = "matriculaAbogado")
+    @Column(name = "matriculaAbogado", nullable = false)
     private String matriculaAbogado;
     @Size(max = 255)
-    @Column(name = "NIF")
+    @Column(name = "NIF", nullable = false)
     private String nif;
     @Size(max = 255)
-    @Column(name = "nombres")
+    @Column(name = "nombres", nullable = false)
     private String nombres;
     @Size(max = 255)
-    @Column(name = "telefono")
+    @Column(name = "telefono", nullable = false)
     private String telefono;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "administrador")
     private Collection<Presupuesto> presupuestoCollection;
