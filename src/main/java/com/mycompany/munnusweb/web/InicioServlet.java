@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.service.AdministradorService;
+import com.mycompany.munnusweb.service.FacturaService;
 import com.mycompany.munnusweb.service.PropietarioService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
