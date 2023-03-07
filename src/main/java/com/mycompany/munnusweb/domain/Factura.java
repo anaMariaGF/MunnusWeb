@@ -66,9 +66,6 @@ public class Factura implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facturaidFactura")
 	private Collection<Vivienda> viviendaCollection;
-      
-	private static final long serialVersionUID = 1L;
-
 
 	public Integer getIdFactura() {
 		return idFactura;
@@ -77,4 +74,50 @@ public class Factura implements Serializable {
 	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
+
+	public LocalDateTime getFechaEmision() {
+		return fechaEmision;
+	}
+
+	public void setFechaEmision(LocalDateTime fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+	public String getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+
+	public String getEstadoF() {
+		return estadoF;
+	}
+
+	public void setEstadoF(String estadoF) {
+		this.estadoF = estadoF;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	public Collection<Vivienda> getViviendaCollection() {
+		return viviendaCollection;
+	}
+
+	public void setViviendaCollection(Collection<Vivienda> viviendaCollection) {
+		this.viviendaCollection = viviendaCollection;
+	}
+      
+	
+
+	
+
+	
 }
