@@ -99,7 +99,7 @@ public class FacturaServlet extends HttpServlet {
 
         try {
             Double valorDouble = Double.parseDouble(valor);
-            facturaService.registrarFactura(estadoF, fechaEmisionLocalDate, periodo, valorDouble);
+            facturaService.registrarFactura(estadoF, fechaEmisionLocalDate.atStartOfDay(), periodo, valorDouble);
         } catch (NumberFormatException e) {
             System.err.println("Error al convertir el valor a double: " + e.getMessage());
         } catch (ExcepcionNegocio ex) {

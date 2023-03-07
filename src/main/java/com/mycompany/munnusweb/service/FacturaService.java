@@ -24,7 +24,6 @@ public interface FacturaService {
 
 	public Factura encontrarFacturaPorID(int id);
 
-	public void registrarFactura(String estadoF, LocalDate fechaEmision, String periodo, Double valor)throws ExcepcionNegocio;
 
     void registrarFactura(String estado, LocalDateTime fechaEmision,
                           String periodo, Double valor)throws ExcepcionNegocio;
