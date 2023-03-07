@@ -37,7 +37,7 @@ public class CargarDatosServiceImp implements CargarDatosService{
                Propietario propietario1 =  new Propietario();
                propietario1.setApellidos("Gomez");
                propietario1.setNombres("Ana");
-               propietario1.setEmail("ana@gmail.com");
+               propietario1.setEmail("anita@gmail.com");
                propietario1.setTelefono("1234567");
                propietario1.setNumeroCuentaBancaria("AB1234");
                propietario1.setEstadoCuentaA("Y");
@@ -80,7 +80,7 @@ public class CargarDatosServiceImp implements CargarDatosService{
                 
         factura.setFechaEmision(LocalDateTime.MIN);
         
-        facturaDao.insertFactura(factura);
+       // facturaDao.insertFactura(factura);
          
                
     }

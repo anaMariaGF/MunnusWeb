@@ -2,6 +2,7 @@ package com.mycompany.munnusweb.web;
 
 import com.mycompany.munnusweb.service.AdministradorService;
 import com.mycompany.munnusweb.service.PropietarioService;
+import com.mycompany.munnusweb.service.ViviendaService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -21,6 +22,9 @@ public class iniSesionServlet extends HttpServlet {
 
     @Inject
     private PropietarioService propietarioService;
+    
+      @Inject
+    private ViviendaService viviendaoService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,6 +59,16 @@ public class iniSesionServlet extends HttpServlet {
                 }
             } else if (rol.equalsIgnoreCase("prop")) {
                 if (propietarioService.iniciarSesionPropietario(email, clave)) {
+                    
+                  
+                    
+                    String nombreImg = "tia.jpg";
+                    req.setAttribute("imgUrl", nombreImg);
+                    req.setAttribute("propietario",   propietarioService.econtrarPropietarioPorEmail(email));
+                    
+                    
+                    req.setAttribute("viviendas", viviendaoService.listarViviendas());
+                    
                     req.getRequestDispatcher("/panelProp.jsp").forward(req, resp);
                 } else {
                     req.setAttribute("mensajeError", "Email o clave incorrecta. Por favor, inténtalo de nuevo.");

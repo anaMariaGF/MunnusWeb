@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -79,7 +80,7 @@ public class Vivienda implements Serializable {
 	@Column(name = "totalPagar")
 	private double totalPagar;
 
-	@OneToMany(mappedBy ="vivienda" )
+	@OneToMany(mappedBy ="vivienda",fetch = FetchType.LAZY)
         List<Factura> facturas;
 
 	@OneToMany(mappedBy = "vivienda")

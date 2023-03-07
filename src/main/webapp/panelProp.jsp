@@ -4,6 +4,9 @@
     Author     : ana
 --%>
 
+<%@page import="com.mycompany.munnusweb.domain.Vivienda"%>
+<%@page import="java.util.List"%>
+<%@page import="com.mycompany.munnusweb.domain.Propietario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,7 +73,7 @@
     <body>
         <header>
             <div class="logo">
-                <img src="img/munus.png" alt="Logo" />
+                <img src="/resources/img/munus.png" alt="Logo" />
             </div>
             <div class="menu" style="display: flex; justify-content: flex-end; align-items: center">
                 <a href="#" class="icono-menu">&#9776;</a>
@@ -91,6 +94,17 @@
                 <a class="nav-link" href="#">Mi Comunidad</a>
             </li>
         </ul>
+             
+             <%
+                 String imgUrl = (String) request.getAttribute("imgUrl");
+                 
+              Propietario propietario = (Propietario) request.getAttribute("propietario");
+              
+              List<Vivienda> viviendas = ( List<Vivienda>) request.getAttribute("viviendas");
+  
+                
+                 
+                 %>
     </nav>
     
     <div class="row mx-auto">
@@ -98,13 +112,22 @@
             <div class="card">
                 <div class="card-body">
                   <div class="d-flex justify-content-center">
-                    <img src="img/vendedora.png" class="card-img-top mt-4 px-4" alt="..." style="width: 100%;height: auto;">
+                      <img class="card-img-top mt-4 px-4" 
+                           alt="imagen perfil" style="width: 100%;height: auto;"
+                           src="resources/img/${imgUrl}"/>
+                   
                   </div>
                   <h5 class="card-title text-center mt-4">${propietario.nombres}</h5>
+                  
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="bi bi-house-door"> ${vivienda.direccionVivienda}</i></li>
-                    <li class="list-group-item"> <i class="bi bi-house-door"></i> ${vivienda.direccionVivienda}</li>
+                  <% for (Vivienda vivienda: viviendas ) {  %>
+               
+                    <li class="list-group-item">
+                        <i class="bi bi-house-door"> ${vivienda.direccionVivienda}</i>
+                    </li>
+                  <% }  %>
                   </ul>
+                  
                 </div>
               </div>
         </div>

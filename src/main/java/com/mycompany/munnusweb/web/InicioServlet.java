@@ -81,7 +81,7 @@ public class InicioServlet extends HttpServlet {
 
             propService.registrarPropietario("Fandiño", "1234", "pepe@gmail.com", "pepe", "12345678", "6358005");
             
-            //viviendaService.registrarVivienda(ascensor, serialVersionUID, direccionVivienda, parking, portal, serialVersionUID);
+            viviendaService.registrarVivienda("Y",2,"Calle siempreviva 123", "Y", "2",2);
             
             
             cargador.registrarDatos();
