@@ -38,7 +38,7 @@ public class DescargarFacturaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 GeneradoFacturas f = new GeneradoFacturas();
-f.geneerarFactura(null, null, null);
+//f.geneerarFactura(null, null, null);
 
         // copio la informacio  de comptadr a la repsusto 
         response.setHeader("Content-diposition", "attachment;filename=factura.txt");
