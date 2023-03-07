@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mycompany.munnusweb.domain.TipoGastos;
 import com.mycompany.munnusweb.service.TipoGastosService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,56 +28,81 @@ import java.util.logging.Logger;
 @WebServlet("/tipoGastos")
 public class TipoGastosServlet extends HttpServlet {
 
-	// Ahora hacemos la inyección del componente EJB local al servlet
-	@Inject
-	// Ahora definimos nuestra variable
-	TipoGastosService tipoGastosService; // Cremos una instancia de nuestra if local
+    // Ahora hacemos la inyección del componente EJB local al servlet
+    @Inject
+    // Ahora definimos nuestra variable
+    TipoGastosService tipoGastosService; // Cremos una instancia de nuestra if local
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String descripcion = request.getParameter("descripcion");
 
-		/**
-		 * Ahora este método va acceder al listado de personas por medio de la instancia
-		 * que estamos recibiendo el EJB
-		 */
-		List<TipoGastos> tipoGastosL = tipoGastosService.listarTipoGastos();
-		System.out.println("Tipos de gastos: " + tipoGastosL);
+        if (descripcion != null) {
 
-		// Ponemos personas en un alcance, a request se le pueden setear uno o varios
-		// atributos
-		request.setAttribute("tipoGastos", tipoGastosL);
+            try {
+                TipoGastos tipoGastos = tipoGastosService.encontrarTipoGastosPorDescripcion(descripcion);
 
-		// Redirigimos al JSP
-		request.getRequestDispatcher("/listadoTipoGastos.jsp").forward(request, respose);
-	}
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(tipoGastos);
+                request.setAttribute("Tipo de Gasto: ", arrayList);
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                // Redirigimos al JSP, a la url donde muestrro esta lista
+                request.getRequestDispatcher("/listadoPropietarios.jsp").forward(request, response);
+            } catch (ExcepcionNegocio ex) {
+                Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
 
-		// se elee el parametro que llegue oir urk
-		String descripcion = req.getParameter("descripcion");
+                ///redireigiria a lun apagina de error 
+            }
 
-		TipoGastos gasto = new TipoGastos();
-		gasto.setDescripcion(descripcion);
+        } else {
 
-		tipoGastosService.registrarTipoGasto(gasto);
+            /**
+             * Ahora este método va acceder al listado de personas por medio de
+             * la instancia que estamos recibiendo el EJB
+             */
+            List<TipoGastos> tipoGastosL = tipoGastosService.listarTipoGastos();
+            System.out.println("Tipos de gastos: " + tipoGastosL);
 
-		// redirgimos a la siguiente pagina
-		req.getRequestDispatcher("listadoTipoGastos.jsp"); // .forward(req, resp);
+            // Ponemos personas en un alcance, a request se le pueden setear uno o varios
+            // atributos
+            request.setAttribute("tipoGastos", tipoGastosL);
 
-	}
-    
+            // Redirigimos al JSP
+            request.getRequestDispatcher("/listadoTipoGastos.jsp").forward(request, response);
+        }
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // se elee el parametro que llegue oir urk
+        String descripcion = req.getParameter("descripcion");
+
+        TipoGastos gasto = new TipoGastos();
+        gasto.setDescripcion(descripcion);
+
+        try {
+            tipoGastosService.registrarTipoGasto(gasto);
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(TipoGastosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // redirgimos a la siguiente pagina
+        req.getRequestDispatcher("listadoTipoGastos.jsp"); // .forward(req, resp);
+
+    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int id_gasto =Integer.parseInt(req.getParameter("id_TipoGasto"));
+        int id_gasto = Integer.parseInt(req.getParameter("id_TipoGasto"));
 
-       
+        try {
             tipoGastosService.eliminarTipoGasto(id_gasto);
-      
-    }
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(TipoGastosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
 
 }

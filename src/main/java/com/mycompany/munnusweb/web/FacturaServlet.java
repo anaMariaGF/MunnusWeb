@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.domain.Factura;
 import com.mycompany.munnusweb.service.FacturaService;
+import com.mycompany.munnusweb.util.ExcepcionNegocio;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,24 +33,47 @@ public class FacturaServlet extends HttpServlet {
     // Ahora hacemos la inyección del componente EJB local al servlet
     @Inject
     // Ahora definimos nuestra variable
-    FacturaService facturaService; // Cremos una instancia de nuestra if local
+    private FacturaService facturaService; // Cremos una instancia de nuestra if local
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /**
-         * Ahora este método va acceder al listado de personas por medio de la
-         * instancia que estamos recibiendo el EJB
-         */
-        List<Factura> facturas = facturaService.listarFacturas();
-        System.out.println("" + "Facturas : " + facturas);
+        String periodo = request.getParameter("periodo");
 
-        // Ponemos personas en un alcance, a request se le pueden setear uno o varios
-        // atributos
-        request.setAttribute("Facturas", facturas);
+        if (periodo != null) {
 
-        // Redirigimos al JSP
-        request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, respose);
+            try {
+                Factura fac = facturaService.encontrarFacturaPorPeriodo(periodo);
+
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(fac);
+                request.setAttribute("facturas", arrayList);
+
+                // Redirigimos al JSP, a la url donde muestrro esta lista
+                request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, response);
+            } catch (ExcepcionNegocio ex) {
+                ex.printStackTrace();
+                Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+                ///redireigiria a lun apagina de error 
+            }
+
+        } else {
+
+            /**
+             * Ahora este método va acceder al listado de personas por medio de
+             * la instancia que estamos recibiendo el EJB
+             */
+            List<Factura> facturas = facturaService.listarFacturas();
+            System.out.println("Facturas : " + facturas);
+
+            // Ponemos personas en un alcance, a request se le pueden setear uno o varios
+            // atributos
+            request.setAttribute("facturas", facturas);
+
+            // Redirigimos al JSP
+            request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, response);
+        }
     }
 
     /*
@@ -60,29 +85,49 @@ public class FacturaServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.err.println("entrando");
+        
+        System.out.println("Iniciando post ");
+        System.out.println("entrando");
+        
         String estadoF = req.getParameter("estadoF");
         String fechaEmision = req.getParameter("fechaEmision"); //aqui lo puse STRING esta bien?
         String periodo = req.getParameter("periodo");
         String valor = req.getParameter("valor");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime fechaEmisionLocalDateTime = LocalDate.parse(fechaEmision, formatter).atTime(LocalTime.MIN);
+        LocalDate fechaEmisionLocalDate = LocalDate.parse(fechaEmision, formatter);
 
-
-        Double valorDouble = Double.parseDouble(valor);
-
-        facturaService.registrarFactura(estadoF, fechaEmisionLocalDateTime, periodo, valorDouble);
+        try {
+            Double valorDouble = Double.parseDouble(valor);
+            facturaService.registrarFactura(estadoF, fechaEmisionLocalDate, periodo, valorDouble);
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir el valor a double: " + e.getMessage());
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(FacturaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(); //ponerlo para ver mas detalles 
+        }
 
     }
-    /*
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            LocalDateTime fechaEmisionLocalDateTime = LocalDateTime.parse("fechaEmisionLoca");
-            
-            facturaService.
-  
-        }*/
+        
+        String fechaEmision = req.getParameter("fechaEmision");
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fechaEmisionLocalDate = LocalDate.parse(fechaEmision, formatter);
+        
+     
+        try {
+            facturaService.eliminarFactura(fechaEmisionLocalDate);
+        } catch (ExcepcionNegocio ex) {
+            Logger.getLogger(FacturaServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+            req.setAttribute("Error", ex.getMessage());
+
+            req.getRequestDispatcher("/listadoFacturas.jsp").forward(req, resp);
+        }
+
+    }
 
 }

@@ -44,12 +44,27 @@ public class AdministradorServiceImp implements AdministradorService {
     @Inject
     private AdministradorDao administradorDao;
 
-    // Ahora nos apoyamos de la interfaz para completar los servicios
+    /*
+    Se encarga de obtener una lista de todos los 
+    administradores. En este caso, simplemente 
+    hace una llamada al método "findAllAdministrador()" 
+    definido en la clase "administradorDao" y 
+    devuelve la lista de administradores resultante
+     */
     @Override
     public List<Administrador> listarAdministradores() {
         return administradorDao.findAllAdministrador();
     }
 
+    /*
+    se encarga de encontrar un administrador específico a partir de su ID. 
+    Para hacer esto, primero llama al método "findAdministradorByID(int id)" 
+    definido en la clase "administradorDao", que devuelve un objeto
+    Optional<Administrador> que puede o no contener el administrador buscado. 
+    Si el Optional está presente, devuelve el administrador contenido en el 
+    Optional, de lo contrario lanza una ExcepcionNegocio indicando que el 
+    administrador no se encontró.
+     */
     @Override
     public Administrador encontrarAdministradorPorID(int id) throws ExcepcionNegocio {
 
@@ -87,7 +102,7 @@ public class AdministradorServiceImp implements AdministradorService {
         boolean esCorreoValido = Validador.validarCorreo(email);
 
         if (!esCorreoValido) {
-            throw new ExcepcionNegocio("Correo no cumple conel formato establecido  ");
+            throw new ExcepcionNegocio("Correo  ["+ email+"] no cumple con el formato establecido");
 
         }
 
@@ -108,12 +123,12 @@ public class AdministradorServiceImp implements AdministradorService {
             if (existeElcorreo) {
                 // TODO: BUSCAR TECNICA PAOFUSCAR LNIF
                 throw new ExcepcionNegocio("Correo ya existe y esta signado al nif  " + admin.getMatriculaAbogado()
-                        + " si no es us nifo constactese con soporte ");
+                        + " si no es ss nif constactese con soporte ");
             }
 
             if (existeLaMatricula) {
                 // TODO: BUSCAR TECNICA PAOFUSCAR L ECOOREO
-                throw new ExcepcionNegocio(" La matricticulado ya registado con el correo " + admin.getEmail());
+                throw new ExcepcionNegocio(" La matrícula ya está registada con el correo " + admin.getEmail());
 
             }
 
@@ -157,16 +172,16 @@ public class AdministradorServiceImp implements AdministradorService {
 
         Administrador administrador = administradorDao.findAdministradorByMatriculaAbogado(matriculaAbogado)
                 .orElseThrow(
-                        () -> new ExcepcionNegocio("Nos epuede dar de baja , ya que no se encuntra dicha matrícula"));
+                        () -> new ExcepcionNegocio("No se puede dar de baja , ya que no se encuntra dicha matrícula"));
 
-        administrador.setEstadoCuentaA("N");
+        administrador.setEstadoCuentaA("S");
 
         administradorDao.updateAdministrador(administrador);
 
     }
 
     /*
-	 * El método "validarAdministrador" se encarga de permitir que un administrador
+	 * El método "inicarSesionAdministrador" se encarga de permitir que un administrador
 	 * inicie sesión en el sistema. Para ello, solicita al usuario su número de
 	 * matrícula de abogado y su contraseña. Luego, verifica que los datos
 	 * ingresados se encuentren en la base de datos y que la cuenta no se encuentre
@@ -175,7 +190,17 @@ public class AdministradorServiceImp implements AdministradorService {
 	 * 
      */
     @Override
-    public boolean inicarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio {
+    public boolean iniciarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio {
+
+        if (clave == null || clave.trim().isEmpty()) {
+
+            throw new ExcepcionNegocio("La clave no puede ser nula");
+
+        }
+
+        if (matricula == null || matricula.trim().isEmpty()) {
+            throw new ExcepcionNegocio("La matricula no puede ser nula");
+        }
 
         try {
 
@@ -188,13 +213,8 @@ public class AdministradorServiceImp implements AdministradorService {
                 // extraemoe l svor , ya qabemos que no enull
                 Administrador admin = adminMatricula.get();
 
-                if (admin.getClave().equals(claveEncriptada)) {
+                return admin.getClave().equals(claveEncriptada);
 
-                    return true;
-
-                } else {
-                    return false;
-                }
             } else {
                 return false;
             }

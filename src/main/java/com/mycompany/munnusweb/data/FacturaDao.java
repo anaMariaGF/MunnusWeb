@@ -7,6 +7,9 @@ package com.mycompany.munnusweb.data;
 import java.util.List;
 
 import com.mycompany.munnusweb.domain.Factura;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  *
@@ -24,4 +27,13 @@ public interface FacturaDao {
 	public void updateFactura(Factura factura);
 
 	public void deleteFactura(Factura factura);
+        
+        public Optional<Factura> findFacturaByFechaEmision(LocalDate fechaEmision);
+
+        public Optional<Factura> findFacturaByPeriodo(String periodo);
+        
+        public Optional<Factura> findFacturaByEstadoF(String estatadoF);
+        
+        public Optional<Factura> findFacturaByValor(Double valor);
+
 }

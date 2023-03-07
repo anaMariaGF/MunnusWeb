@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import com.mycompany.munnusweb.domain.Propietario;
 import com.mycompany.munnusweb.util.Constantes;
 import java.util.Optional;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -34,23 +35,33 @@ public class PropietarioDaoImp implements PropietarioDao {
     public List<Propietario> findAllPropietario() {
         // Creamos un NamedQuery, y el listado lo leemos con getResultList
         // Por lo que estamos escribiendo menos código
-        return em.createNamedQuery("Administrador.findAll").getResultList();
+        return em.createNamedQuery("Propietario.findAll").getResultList();
     }
 
     @Override
-    public Optional <Propietario>  findPropietarioByID(int id) {
+    public Optional<Propietario> findPropietarioByID(int id) {
         // Especificamos la clase que queremos buscar y luego el campo por el
         // que queremos buscar
         return Optional.ofNullable(em.find(Propietario.class, id));
     }
 
     @Override
-    public Optional <Propietario> findPropietarioByEmail(String email) {
+    public Optional<Propietario> findPropietarioByEmail(String email) {
         // En este caso no vamos a usar un NamedQuery, que podríamos haber
-        // agregado en la Entidad de Usuario sino que vamos a incluirlo directamente.
-        Query query = em.createQuery("Propietario.findByEmail");
-        query.setParameter("email", email);
-        return Optional.ofNullable((Propietario) query.getSingleResult());
+        // agregado en la Entidad de Usuario sino que vamos a incluirlo directamente.+
+     
+        
+        Query query = em.createNativeQuery("SELECT * FROM propietario WHERE email = ?1",Propietario.class);
+
+        Propietario res = null;
+        query.setParameter(1, email);
+        try {
+            res= (Propietario) query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("No se encuntra el correo "+ email);
+        }
+
+        return Optional.ofNullable(res);
     }
 
     @Override

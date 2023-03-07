@@ -7,6 +7,7 @@ package com.mycompany.munnusweb.data;
 import java.util.List;
 
 import com.mycompany.munnusweb.domain.TipoGastos;
+import java.util.Optional;
 
 /**
  *
@@ -17,7 +18,7 @@ public interface TipoGastosDao {
 
 	public TipoGastos findByIdTipoGasto(int id);
 
-	public TipoGastos findByDescripcion(TipoGastos tipoGasto);
+	public Optional <TipoGastos> findByDescripcion(String descripcion);
 
 	public void insertTipoGasto(TipoGastos tipoGasto);
 

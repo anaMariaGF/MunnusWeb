@@ -5,7 +5,6 @@
 package com.mycompany.munnusweb.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.ejb.Local;
 
@@ -27,11 +26,12 @@ public interface AdministradorService {
 	public Administrador encontrarAdministradorPorMatriculaAbogado(String matricula)  throws ExcepcionNegocio;
 
 	public void registrarAdministrador(String nif, String matriculaAbogado, String nombres, String apellidos,
-			String telefono, String email, String clave) throws ExcepcionNegocio;
+	String telefono, String email, String clave) throws ExcepcionNegocio;
+
 
 	public void administradorDeBaja(String matriculaAbogado) throws ExcepcionNegocio;
 
-	public boolean inicarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio;
+	public boolean iniciarSesionAdministrador(String matricula, String clave) throws ExcepcionNegocio;
 
 	public void cambioClaveAdministrador(String matricula, String claveVieja, String claveNueva)
 			throws ExcepcionNegocio;

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mycompany.munnusweb.domain.Presupuesto;
 import com.mycompany.munnusweb.service.PresupuestoService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,21 +34,35 @@ public class PresupuestoServlet extends HttpServlet {
     PresupuestoService presupuestoService; // Cremos una instancia de nuestra if local
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String nombreComunidad = request.getParameter("nombreComunidad");
 
-        /**
-         * Ahora este método va acceder al listado de personas por medio de la
-         * instancia que estamos recibiendo el EJB
-         */
+        if (nombreComunidad != null) {
+
+            try {
+                Presupuesto presupuesto = presupuestoService.encontrarPresupuestoPorNombreComunidad(nombreComunidad);
+
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(presupuesto);
+                request.setAttribute("presupuestos", arrayList);
+
+                // Redirigimos al JSP, a la url donde muestrro esta lista
+                request.getRequestDispatcher("/listadoFacturas.jsp").forward(request, response);
+            } catch (ExcepcionNegocio ex) {
+                Logger.getLogger(AdministradorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+
         List<Presupuesto> presupuestos = presupuestoService.listarPresupuestos();
         System.out.println("" + "Presupuestos : " + presupuestos);
 
-        // Ponemos personas en un alcance, a request se le pueden setear uno o varios
-        // atributos
         request.setAttribute("Presupuestos", presupuestos);
 
         // Redirigimos al JSP
-        request.getRequestDispatcher("/listadoPresupuestos.jsp").forward(request, respose);
+        request.getRequestDispatcher("/listadoPresupuestos.jsp").forward(request, response);
+    }
     }
 
     @Override
@@ -67,20 +82,18 @@ public class PresupuestoServlet extends HttpServlet {
         }
 
     }
-    
+
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int idPresupuesto = Integer.parseInt(req.getParameter("idPresupuesto"));
         int idAdmin = Integer.parseInt(req.getParameter("idAdmin"));
 
-       
         try {
-            presupuestoService.eliminarPresupuesto(idAdmin,idPresupuesto);
+            presupuestoService.eliminarPresupuesto(idAdmin, idPresupuesto);
         } catch (ExcepcionNegocio ex) {
             ex.printStackTrace();
         }
-       
 
     }
 }

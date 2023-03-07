@@ -5,6 +5,7 @@
 package com.mycompany.munnusweb.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
@@ -68,10 +69,6 @@ public class Factura implements Serializable {
       
 	private static final long serialVersionUID = 1L;
 
-	public Factura() {
-	}
-
-	/* Getter and setter */
 
 	public Integer getIdFactura() {
 		return idFactura;
@@ -80,91 +77,4 @@ public class Factura implements Serializable {
 	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
-
-	public LocalDateTime getFechaEmision() {
-		return fechaEmision;
-	}
-
-	public void setFechaEmision(LocalDateTime fechaEmision) {
-		this.fechaEmision = fechaEmision;
-	}
-
-	public String getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
-
-	public String getEstadoF() {
-		return estadoF;
-	}
-
-	public void setEstadoF(String estadoF) {
-		this.estadoF = estadoF;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	public Collection<Vivienda> getViviendaCollection() {
-		return viviendaCollection;
-	}
-
-	public void setViviendaCollection(Collection<Vivienda> viviendaCollection) {
-		this.viviendaCollection = viviendaCollection;
-	}
-
-	
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	/* equal y hascode */
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(estadoF, fechaEmision, idFactura, periodo, valor,
-				viviendaCollection);
-	}
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Factura other = (Factura) obj;
-        if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
-            return false;
-        }
-        if (!Objects.equals(this.periodo, other.periodo)) {
-            return false;
-        }
-        if (!Objects.equals(this.estadoF, other.estadoF)) {
-            return false;
-        }
-        if (!Objects.equals(this.idFactura, other.idFactura)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaEmision, other.fechaEmision)) {
-            return false;
-        }
-        return Objects.equals(this.viviendaCollection, other.viviendaCollection);
-    }
-
-
-
 }

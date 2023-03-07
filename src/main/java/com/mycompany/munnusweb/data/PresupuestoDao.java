@@ -21,7 +21,7 @@ public interface PresupuestoDao {
 
 	public Optional <Presupuesto> findPresupuestoByID(PresupuestoPK presupuesto);
         
-        public Optional <Presupuesto>  findPresupuestoByNombreComunidad(String nombreComunidad);
+        public Optional <Presupuesto> findPresupuestoByNombreComunidad(String nombreComunidad);
 
 	public void insertPresupuesto(Presupuesto presupuesto);
 
