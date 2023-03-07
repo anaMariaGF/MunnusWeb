@@ -13,7 +13,7 @@ import com.mycompany.munnusweb.domain.Vivienda;
 public class GeneradoFacturas {
     
 
-    public Path geneerarFactura(List<Propietario> propietarios, Factura factura, Vivienda vivienda){
+    public Path geneerarFactura(List<Propietario> propietarios, Factura factura, Vivienda vivienda) throws ExcepcionNegocio {
 
 
 
@@ -38,8 +38,9 @@ public class GeneradoFacturas {
            Files.write(archivoTexto, data.toString().getBytes());
             return archivoTexto;
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
 
+            ex.printStackTrace();
             throw new ExcepcionNegocio("Se produjo un error al genera factura"+ ex.getMessage());
             
             e.printStackTrace();

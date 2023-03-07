@@ -21,24 +21,23 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "presupuesto_has_tipo_gastos")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "PresupuestoHasTipoGastos.findAll", query = "SELECT p FROM PresupuestoHasTipoGastos p"),
-    @NamedQuery(name = "PresupuestoHasTipoGastos.findByPresupuestoidPresupuesto", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.presupuestoidPresupuesto = :presupuestoidPresupuesto"),
-    @NamedQuery(name = "PresupuestoHasTipoGastos.findByTipoGastosIdTipoGastos", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.tipoGastosIdTipoGastos = :tipoGastosIdTipoGastos"),
-    @NamedQuery(name = "PresupuestoHasTipoGastos.findByPresupuestoIdAdministrador", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.presupuestoIdAdministrador = :presupuestoIdAdministrador")})
+
+@NamedQuery(name = "PresupuestoHasTipoGastos.findAll", query = "SELECT p FROM PresupuestoHasTipoGastos p")
+@NamedQuery(name = "PresupuestoHasTipoGastos.findByPresupuestoidPresupuesto", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.idPresupuesto = :presupuestoidPresupuesto")
+@NamedQuery(name = "PresupuestoHasTipoGastos.findByTipoGastosIdTipoGastos", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.idTipoGasto = :tipoGastosIdTipoGastos")
+@NamedQuery(name = "PresupuestoHasTipoGastos.findByPresupuestoIdAdministrador", query = "SELECT p FROM PresupuestoHasTipoGastos p WHERE p.presupuestoHasTipoGastosPK.idAdministrador = :presupuestoIdAdministrador")
 public class PresupuestoHasTipoGastos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
     protected PresupuestoHasTipoGastosPK presupuestoHasTipoGastosPK;
-    @JoinColumn(name = "presupuesto_id_administrador", referencedColumnName = "id_Administrador", insertable = false, updatable = false)
-    @JoinColumn(name = "presupuesto_id_Presupuesto", referencedColumnName = "id_Presupuesto", insertable = false, updatable = false)
+    @JoinColumn(name = "id_administrador", referencedColumnName = "id_Administrador", insertable = false, updatable = false)
+    @JoinColumn(name = "id_Presupuesto", referencedColumnName = "id_Presupuesto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Presupuesto presupuesto;
    
-    @JoinColumn(name = "TIPO_GASTOS_ID_TIPO_GASTOS", referencedColumnName = "TIPO_GASTOS_ID_TIPO_GASTOS", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_TIPO_GASTOS", referencedColumnName = "TIPO_GASTOS_ID_TIPO_GASTOS", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private TipoGastos tipoGastos;
     

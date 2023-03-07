@@ -4,6 +4,7 @@
  */
 package com.mycompany.munnusweb.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -61,8 +62,8 @@ public class FacturaServiceImp implements FacturaService {
     */
 
     @Override
-    public void registrarFactura(String estado, LocalDate fechaEmision, 
-            String periodo, Double valor)throws ExcepcionNegocio{
+    public void registrarFactura(String estado, LocalDateTime fechaEmision,
+                                 String periodo, Double valor)throws ExcepcionNegocio{
 
         System.out.println("Servicio registara factura ");
         List<Factura> facturas = facturaDao.findAllFacturas();

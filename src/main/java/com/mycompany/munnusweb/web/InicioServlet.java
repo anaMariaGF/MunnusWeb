@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mycompany.munnusweb.service.AdministradorService;
+import com.mycompany.munnusweb.service.CargarDatosService;
 import com.mycompany.munnusweb.service.FacturaService;
 import com.mycompany.munnusweb.service.PropietarioService;
+import com.mycompany.munnusweb.service.ViviendaService;
 import com.mycompany.munnusweb.util.ExcepcionNegocio;
 
 /**
@@ -32,6 +34,12 @@ public class InicioServlet extends HttpServlet {
 
     @Inject
     FacturaService facService;
+    
+    @Inject
+    ViviendaService viviendaService;
+    
+    @Inject
+    CargarDatosService cargador;
 
     public InicioServlet() {
         super();
@@ -72,6 +80,12 @@ public class InicioServlet extends HttpServlet {
             adminService.registrarAdministrador("1234", "1234", "Ana","1234", "123456","anamgfandi@gmail.com","2142003");
 
             propService.registrarPropietario("Fandiño", "1234", "pepe@gmail.com", "pepe", "12345678", "6358005");
+            
+            //viviendaService.registrarVivienda(ascensor, serialVersionUID, direccionVivienda, parking, portal, serialVersionUID);
+            
+            
+            cargador.registrarDatos();
+            
         } catch (ExcepcionNegocio e) {
             System.out.println(e.getMessage());
 
